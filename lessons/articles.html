@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Article Desk — A/An · The · Zero</title>
+<style>
+:root{
+  --ink:#12263f; --paper:#f5f7fb; --card:#ffffff; --line:#dfe6f0;
+  --blue:#1f6fd6; --gold:#c9962e; --green:#2e7d32; --red:#c62828;
+  --muted:#5b6b81; --r:14px;
+}
+body[data-level="easy"]{--lv:#1d6fd0}
+body[data-level="medium"]{--lv:#2e7d32}
+body[data-level="hard"]{--lv:#c62828}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.55}
+.display,h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+.hidden{display:none!important}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+
+/* ---------- HERO ---------- */
+.hero{background:linear-gradient(180deg,#eef3fb 0%,var(--paper) 100%);border-bottom:1px solid var(--line);padding:26px 0 34px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lv);font-weight:700}
+#printBtn{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600}
+.levelbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+.levelbar .lbl{font-weight:800;letter-spacing:.1em;font-size:.8rem}
+.lvbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 16px;font-weight:700;letter-spacing:.06em;cursor:pointer;font-size:.8rem}
+.lvbtn.on{background:var(--lv);border-color:var(--lv);color:#fff}
+#cefrBadge{background:var(--lv);color:#fff;border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700}
+.keys{color:var(--muted);font-size:.75rem}
+h1{font-size:clamp(2rem,5vw,3.2rem);margin:.2em 0 .1em}
+.bigline{font-family:Georgia,serif;font-size:clamp(1.3rem,3.4vw,2rem);margin:0 0 10px}
+.wa{color:var(--blue)} .wt{color:var(--gold)} .wz{color:var(--muted)}
+.lede{max-width:700px;color:var(--muted);font-size:1.02rem}
+.telegram{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px;max-width:520px;margin:18px 0;box-shadow:0 8px 22px rgba(18,38,63,.08)}
+.telegram .tg-head{font-size:.72rem;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:8px}
+.msg{background:#e8f1fd;border-radius:12px 12px 2px 12px;padding:8px 12px;margin:6px 0;max-width:85%;font-size:.95rem}
+.msg .ha{color:var(--blue);font-weight:800}
+.msg .ht{color:var(--gold);font-weight:800}
+.msg .hz{color:var(--muted);font-weight:800}
+.tg-cap{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:6px}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.trio div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.trio b{color:var(--lv)}
+.hero-nav{margin:14px 0 6px}
+.hero-nav a{color:var(--ink);text-decoration:none;font-weight:600;margin-right:16px;font-size:.92rem}
+.hero-nav a:hover{color:var(--lv);text-decoration:underline}
+.scroll-hint{color:var(--muted);font-size:.78rem;letter-spacing:.12em;margin-top:10px}
+.homelink{display:inline-block;margin-bottom:10px;color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:600}
+.homelink:hover{color:var(--lv)}
+
+/* ---------- RAIL ---------- */
+.rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:6px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:8px}
+.rail-lab{font-size:.62rem;letter-spacing:.16em;text-align:center;color:var(--muted);font-weight:800}
+.railbtn{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer;font-size:.66rem;font-weight:700}
+.railbtn span{font-size:1.05rem}
+.railbtn.on{border-color:var(--lv);background:var(--lv);color:#fff}
+@media(max-width:760px){.rail{right:auto;left:50%;top:auto;bottom:8px;transform:translateX(-50%);flex-direction:row;align-items:center}}
+
+/* ---------- SECTIONS ---------- */
+.sec{padding:44px 0 10px}
+.sechead{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+.secnum{font-family:Georgia,serif;font-size:2rem;color:var(--lv);font-weight:700;line-height:1}
+.sechead h2{margin:2px 0 0;font-size:clamp(1.4rem,3vw,2rem)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.rulecard,.boxcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:0 6px 18px rgba(18,38,63,.06)}
+.rulecard h3{margin:0 0 8px;font-size:1.15rem}
+.badge{display:inline-block;border-radius:8px;padding:2px 10px;font-size:.8rem;font-weight:800;color:#fff;margin-right:6px}
+.b-a{background:var(--blue)} .b-t{background:var(--gold)} .b-z{background:var(--muted)}
+.rulecard ul{margin:6px 0;padding-left:18px}
+.rulecard li{margin:6px 0}
+.ex{display:block;color:var(--blue);font-weight:600}
+.ex-it{display:block;color:var(--muted);font-style:italic;font-size:.88em}
+.golden{border:2px solid var(--gold);background:#fff8ea;border-radius:var(--r);padding:14px 16px;margin:18px 0}
+.golden b{color:var(--gold)}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.step{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:700;font-size:.85rem}
+.step.on{background:var(--lv);border-color:var(--lv);color:#fff}
+.steppanel{background:#fff;border-left:4px solid var(--lv);border-radius:8px;padding:12px 14px;margin:8px 0}
+.anim{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px;margin:18px 0}
+#animStage{font-family:Georgia,serif;font-size:clamp(1.1rem,2.6vw,1.5rem);min-height:2.4em}
+#animStage .ha{color:#8ec1ff;font-weight:800}
+#animStage .ht{color:#ffd98a;font-weight:800}
+#animStage .hz{color:#9fb3c8;font-weight:800}
+#animCap{color:#bcd0e6;font-size:.85rem;font-style:italic;margin-top:6px}
+.anim-ctrl{margin-top:10px}
+.anim-ctrl button{background:#fff;color:var(--ink);border:none;border-radius:8px;padding:6px 14px;font-weight:700;cursor:pointer}
+.flipcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;min-height:130px;cursor:pointer;transition:box-shadow .2s}
+.flipcard:hover{box-shadow:0 8px 20px rgba(18,38,63,.12)}
+.flipcard .back{display:none}
+.flipcard.flipped .back{display:block}
+.flipcard.flipped .front{display:none}
+.flipcard .front b{color:var(--lv)}
+.flipcard .hint{font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- MODEL ---------- */
+.modelwrap{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+@media(max-width:860px){.modelwrap{grid-template-columns:1fr}}
+.model-text{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;font-size:1.06rem;line-height:2.1}
+.tk{border-radius:4px;padding:0 3px;cursor:help;border-bottom:2px dotted var(--muted)}
+.tk.lit{background:#ffe9b8;box-shadow:0 0 0 2px #ffe9b8;border-bottom-color:var(--gold)}
+.tk.z::before{content:"∅ ";color:#8aa0b8;font-weight:800}
+.part{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-size:.9rem}
+.part b{color:var(--lv)}
+.part:hover,.part.pin{border-color:var(--gold);background:#fff8ea}
+.legend{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+/* ---------- BANK ---------- */
+.entry{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#f8fafd;border:1px dashed var(--line);border-radius:8px;padding:6px 10px;margin:6px 0}
+.entry code{color:var(--blue);font-size:.92rem}
+.copy{border:1px solid var(--line);background:#fff;border-radius:6px;font-size:.7rem;padding:3px 8px;cursor:pointer;color:var(--muted)}
+.copy:hover{color:var(--lv);border-color:var(--lv)}
+
+/* ---------- ERROR LAB ---------- */
+.errcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;min-height:110px;cursor:pointer}
+.errcard .front .wrong{color:var(--red);font-weight:600;text-decoration:line-through wavy 1px}
+.errcard .back .right{color:var(--green);font-weight:700}
+.errcard .back .why{display:block;color:var(--muted);font-size:.85rem;font-style:italic;margin-top:4px}
+.errcard .back{display:none}
+.errcard.flipped .back{display:block}
+.errcard.flipped .front{display:none}
+.pill{background:#eef4ff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0;font-size:.92rem}
+.pill code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--blue)}
+
+/* ---------- PRACTICE ---------- */
+.scorebar{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:#fff;border-radius:10px;padding:10px 16px;margin-bottom:16px;font-weight:700}
+.exbox{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:16px;margin-bottom:16px}
+.exbox h3{margin:0 0 4px}
+.status{font-size:.78rem;color:var(--muted);font-style:italic}
+.status.ok{color:var(--green);font-style:normal;font-weight:700}
+.status.bad{color:var(--red);font-style:normal;font-weight:700}
+.chip{border:1.5px solid var(--lv);color:var(--lv);border-radius:999px;padding:6px 14px;background:#fff;cursor:pointer;margin:4px;font-size:.9rem;font-weight:600}
+.chip.sel{background:var(--lv);color:#fff}
+.chip.ok{border-color:var(--green);color:var(--green);background:#eaf6ea}
+.chip.bad{border-color:var(--red);color:var(--red);background:#fdeaea}
+.chip.used{opacity:.35;text-decoration:line-through;cursor:default}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+@media(max-width:700px){.zones{grid-template-columns:1fr}}
+.zone{min-height:120px;border:2px dashed var(--line);border-radius:12px;padding:8px;background:#fafcff}
+.zone h4{margin:4px 0 8px;text-align:center;font-size:.85rem;letter-spacing:.08em;color:var(--muted)}
+.gap{min-width:70px;border:none;border-bottom:2px solid var(--blue);background:#eef4ff;border-radius:6px 6px 0 0;padding:2px 10px;font-weight:800;color:var(--ink);cursor:pointer;font-size:1rem}
+.gap.ok{background:#eaf6ea;border-color:var(--green)}
+.gap.bad{background:#fdeaea;border-color:var(--red)}
+#gapText{font-size:1.08rem;line-height:2.2;background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:14px}
+fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}
+legend{font-weight:700;font-size:.95rem;padding:0 6px}
+fieldset label{display:block;margin:4px 0;cursor:pointer}
+.btn{background:var(--lv);color:#fff;border:none;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:700}
+.btn.ghost{background:#fff;color:var(--lv);border:1.5px solid var(--lv)}
+textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit}
+#wsModel{background:#f2f8f2;border:1px dashed var(--green);border-radius:10px;padding:12px;margin-top:10px;white-space:pre-line}
+
+/* ---------- CHECKLIST ---------- */
+.do,.dont{border-radius:var(--r);padding:14px 18px}
+.do{background:#eaf6ea;border:1px solid #bfe0bf}
+.dont{background:#fdeaea;border:1px solid #eec3c3}
+.do li,.dont li{margin:7px 0}
+.final label{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+.final input{accent-color:var(--lv);width:18px;height:18px;margin-top:2px}
+
+footer{background:var(--ink);color:#cfdcec;margin-top:50px;padding:30px 0}
+footer h3{color:#fff}
+.teach{background:#1b3355;border:1px solid #2d4a75;border-radius:var(--r);padding:14px 16px;font-size:.92rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:8px 18px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99}
+.toast.show{opacity:1}
+
+@media print{
+  .rail,.hero-nav,.scroll-hint,.toast,#printBtn,.copy,.anim-ctrl,.btn,.levelbar .keys,.homelink{display:none!important}
+  body{background:#fff}
+  .flipcard .back{display:block!important;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+  .errcard .back{display:none!important}
+  .errcard .front{display:block!important}
+  .modelwrap{grid-template-columns:1fr}
+  .exbox,.rulecard{break-inside:avoid}
+}
+</style>
+</head>
+<body data-level="medium">
+
+<aside class="rail" aria-label="Level rail">
+  <div class="rail-lab">LEVEL</div>
+  <button class="railbtn" data-lv="easy"  title="Easy (tasto 1)"><span>📘</span><i>EASY</i></button>
+  <button class="railbtn" data-lv="medium" title="Medium (tasto 2)"><span>📗</span><i>MED</i></button>
+  <button class="railbtn" data-lv="hard"  title="Hard (tasto 3)"><span>📕</span><i>HARD</i></button>
+</aside>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="homelink" href="../index.html">← All lessons</a>
+    <div class="hero-top">
+      <div class="kicker">Grammar English · Articles · Classe 3ª Sistemi Informativi Aziendali</div>
+      <button id="printBtn">⎙ PRINT</button>
+    </div>
+    <div class="levelbar">
+      <span class="lbl">LEVEL</span>
+      <button class="lvbtn" data-lv="easy">EASY</button>
+      <button class="lvbtn" data-lv="medium">MEDIUM</button>
+      <button class="lvbtn" data-lv="hard">HARD</button>
+      <span id="cefrBadge">A2+/B1 · semi-guided</span>
+      <span class="keys">keys 1·2·3</span>
+    </div>
+    <h1>The Article Desk</h1>
+    <p class="bigline"><span class="wa">A / An</span> — <span class="wt">The</span> — <span class="wz">∅ Zero article</span></p>
+    <p class="lede">Every English noun wears a little hat: <b>a/an</b>, <b>the</b>… or nothing at all. Learn which hat to put on, which to take off — and never drop the wrong one in an email again.</p>
+
+    <div class="telegram">
+      <div class="tg-head">💬 FIRST CONTACT · WHATSAPP</div>
+      <div class="msg">I saw <span class="ha">a</span> film yesterday! 🎬</div>
+      <div class="msg"><span class="ht">The</span> film was fantastic!</div>
+      <div class="msg"><span class="hz">∅</span> Films are my life, honestly.</div>
+      <div class="tg-cap">first mention → a/an · second mention → the · general → zero</div>
+    </div>
+
+    <div class="trio">
+      <div><b>01</b> Read &amp; observe<br><small>Theory, the mention chain and an annotated model text.</small></div>
+      <div><b>02</b> Collect rules<br><small>Steal ready-made examples from the Rule Bank.</small></div>
+      <div><b>03</b> Practise &amp; write<br><small>Four interactive exercises, then write your own text.</small></div>
+    </div>
+
+    <nav class="hero-nav">
+      <a href="#theory">Theory</a><a href="#model">Model</a><a href="#bank">Rule Bank</a>
+      <a href="#traps">Error Lab</a><a href="#practice">Practice</a><a href="#send">Checklist</a>
+    </nav>
+    <div class="scroll-hint">▼ USE THE LEVEL RAIL · SCROLL TO START</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ 01 THEORY ============ -->
+<section class="sec" id="theory">
+  <div class="sechead"><span class="secnum">01</span><div>
+    <div class="kicker">Section 01 · Theory</div><h2>What are articles?</h2>
+  </div></div>
+  <p>Articles are small words placed <b>before a noun</b>. They tell the listener: is this noun <i>new</i> (a/an), <i>identified</i> (the), or <i>general</i> (no article)?</p>
+
+  <div class="grid3">
+    <div class="rulecard">
+      <h3><span class="badge b-a">A / AN</span> Indefinite</h3>
+      <ul>
+        <li>Si usa <b>a/an</b> quando si nomina qualcosa <b>per la prima volta</b>.
+          <span class="ex">I attended a photography course last summer.</span>
+          <span class="ex-it">Ho frequentato un corso di fotografia la scorsa estate.</span></li>
+        <li>Con i <b>mestieri</b>.
+          <span class="ex">She is an engineer. He's a manager.</span>
+          <span class="ex-it">È un'ingegnera. È un manager.</span></li>
+        <li><b>a</b> davanti a suono consonantico, <b>an</b> davanti a suono vocalico.
+          <span class="ex">a pen · an apple · an umbrella</span></li>
+        <li data-lv="medium hard">Attenzione: conta il <b>suono</b>, non la lettera!
+          <span class="ex">a university (/juː/) · an hour (h muta)</span></li>
+        <li data-lv="hard">Suoni speciali:
+          <span class="ex">a European project · an MBA · a one-way street</span></li>
+      </ul>
+    </div>
+    <div class="rulecard">
+      <h3><span class="badge b-t">THE</span> Definite</h3>
+      <ul>
+        <li>Quando si parla di qualcosa di <b>specifico</b>, già conosciuto o nominato <b>per la seconda volta</b>.
+          <span class="ex">The course was really interesting.</span>
+          <span class="ex-it">Il corso è stato molto interessante.</span></li>
+        <li>Con <b>nomi unici</b>.
+          <span class="ex">the Sun, the Moon, the Colosseum</span></li>
+        <li data-lv="medium hard">Con nomi di <b>fiumi, mari, oceani, catene montuose, deserti, gruppi di isole</b> e <b>Paesi al plurale</b> o con <i>Republic / Kingdom / States</i>.
+          <span class="ex">the Nile, the Alps, the Sahara, the Canary Islands, the Netherlands, the USA, the United Kingdom</span></li>
+        <li data-lv="medium hard">Con <b>superlativi</b> (e ordinali).
+          <span class="ex">the highest mountain · the first order · the only copy</span></li>
+        <li data-lv="medium hard">Con <b>aggettivi che indicano categorie di persone</b>.
+          <span class="ex">the Japanese, the rich, the poor</span></li>
+        <li data-lv="hard">Con <b>the Internet, the environment, the economy</b> e con <i>the same / the different</i>.
+          <span class="ex">We all use the Internet. It's the same price.</span></li>
+      </ul>
+    </div>
+    <div class="rulecard">
+      <h3><span class="badge b-z">∅ ZERO</span> No article</h3>
+      <ul>
+        <li>Quando si parla di cose o persone <b>in generale</b> (plurali, non numerabili, nomi astratti).
+          <span class="ex">Surgeons need to study for years at university.</span>
+          <span class="ex">Sincerity is important.</span></li>
+        <li data-lv="medium hard">Con nomi di <b>laghi, singole montagne, isole</b> e quasi tutti i <b>Paesi</b> (MA: the UK, the USA…).
+          <span class="ex">Lake Michigan, Mount Everest, Sicily, China</span></li>
+        <li>Con <b>giorni, mesi, anni</b>.
+          <span class="ex">Saturday is my favourite day.</span>
+          <span class="ex-it">Il sabato è il mio giorno preferito.</span></li>
+        <li>Con <b>pasti, materiali, colori, sport, materie scolastiche, lingue</b>.
+          <span class="ex">Dinner is at 8 pm. · Silk is expensive. · Football is my favourite sport. · Italian is a beautiful language.</span></li>
+        <li data-lv="hard">Con <b>istituzioni usate per la loro funzione</b> ed <b>espressioni fisse</b>.
+          <span class="ex">go to school · in hospital · in bed · by car · at night · on time</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="golden">⚖ <b>GOLDEN RULE ·</b> The article follows the <b>SOUND</b>, not the spelling: <b>a</b> university, <b>an</b> hour. And remember the chain: <b>first mention → a/an · second mention → the · general idea → ∅</b>.</div>
+
+  <h3>The mention chain — click a step</h3>
+  <div class="steps">
+    <button class="step on" data-s="1">1 · First mention</button>
+    <button class="step" data-s="2">2 · Second mention / specific</button>
+    <button class="step" data-s="3">3 · General idea</button>
+  </div>
+  <div class="steppanel" data-s="1"><span class="ex">I bought <b>a</b> newspaper.</span> Prima menzione di un nome numerabile singolare: il lettore non sa ancora quale. <span class="ex-it">(Ho comprato un giornale.)</span></div>
+  <div class="steppanel hidden" data-s="2"><span class="ex"><b>The</b> newspaper was on the table.</span> Ora sappiamo di quale giornale si parla: articolo definito. <span class="ex-it">(Il giornale era sul tavolo.)</span></div>
+  <div class="steppanel hidden" data-s="3"><span class="ex"><b>∅</b> Newspapers inform us.</span> Plurale in senso generale: nessun articolo. <span class="ex-it">(I giornali informano.)</span></div>
+
+  <div class="anim">
+    <div id="animStage"></div>
+    <div id="animCap"></div>
+    <div class="anim-ctrl"><button id="animPlay">▶ Animated grammar</button></div>
+  </div>
+
+  <h3>Key vocabulary — tap a card to flip it</h3>
+  <div class="grid3">
+    <button class="flipcard"><div class="front"><b>Definite article</b><div class="hint">tap to flip</div></div><div class="back"><b>the</b> → points to something identified: second mention, unique, specific. <span class="ex">The invoice on your desk.</span></div></button>
+    <button class="flipcard"><div class="front"><b>Indefinite article</b><div class="hint">tap to flip</div></div><div class="back"><b>a / an</b> → "one of many": first mention, professions. Only with countable singular nouns. <span class="ex">a printer, an intern</span></div></button>
+    <button class="flipcard"><div class="front"><b>Zero article (∅)</b><div class="hint">tap to flip</div></div><div class="back">No article with general plurals, uncountables, abstract nouns, routines. <span class="ex">∅ Information travels fast.</span></div></button>
+    <button class="flipcard"><div class="front"><b>Countable / uncountable</b><div class="hint">tap to flip</div></div><div class="back">a/an only with countable singular. Uncountables never take a/an: <span class="ex">∅ information (NOT an information)</span></div></button>
+    <button class="flipcard"><div class="front"><b>Sound rule</b><div class="hint">tap to flip</div></div><div class="back"><span class="ex">a university · an hour · an MBA</span> Listen to the first sound, ignore the first letter.</div></button>
+    <button class="flipcard"><div class="front"><b>Geographical names</b><div class="hint">tap to flip</div></div><div class="back"><b>the</b>: rivers, seas, ranges, deserts, island groups, plural countries (<span class="ex">the Po, the Alps, the Netherlands</span>). <b>∅</b>: lakes, single peaks, islands, most countries (<span class="ex">Lake Como, Mount Etna, Spain</span>).</div></button>
+  </div>
+</section>
+
+<!-- ============ 02 MODEL ============ -->
+<section class="sec" id="model">
+  <div class="sechead"><span class="secnum">02</span><div>
+    <div class="kicker">Section 02 · The model</div><h2>Anatomy of a text, article by article</h2>
+  </div></div>
+  <p>Hover or tap a rule card on the right: the matching words in the text light up. The model changes with your level — raise or lower the rail anytime. <span class="legend">(∅ = zero article)</span></p>
+
+  <div class="modelwrap">
+    <div>
+      <div class="model-text" data-lv="easy">
+        Yesterday I found <span class="tk" data-rule="r1">a dog</span> near my gate.
+        <span class="tk" data-rule="r2">The dog</span> was cold, so I brought him inside.
+        In the garden <span class="tk" data-rule="r3">the sun</span> was still warm.
+        <span class="tk z" data-rule="r6">Dogs</span> are usually friendly, and this one was
+        <span class="tk" data-rule="r5">the best</span> guest I ever had!
+        After <span class="tk z" data-rule="r7">dinner</span>, on <span class="tk z" data-rule="r7">Sunday</span> morning,
+        we played <span class="tk z" data-rule="r7">football</span> in the yard.
+      </div>
+      <div class="model-text hidden" data-lv="medium">
+        Last spring my class went on <span class="tk" data-rule="r1">a study trip</span> to northern Italy.
+        <span class="tk" data-rule="r2">The trip</span> lasted five days. Every morning
+        <span class="tk" data-rule="r3">the Sun</span> woke us early, and we walked beside
+        <span class="tk" data-rule="r4">the Po</span>, with <span class="tk z" data-rule="r4">Lake Garda</span> and
+        <span class="tk z" data-rule="r4">Mount Baldo</span> in the distance. Our teacher said it was
+        <span class="tk" data-rule="r5">the most exciting</span> day of the year.
+        <span class="tk z" data-rule="r6">Mountains</span> are my passion: after
+        <span class="tk z" data-rule="r7">dinner</span> we talked about <span class="tk z" data-rule="r7">history</span> and
+        <span class="tk z" data-rule="r7">Italian</span>. The trip was organised by a charity that supports
+        <span class="tk" data-rule="r8">the poor</span>.
+      </div>
+      <div class="model-text hidden" data-lv="hard">
+        On <span class="tk z" data-rule="r7">Monday</span> <span class="tk" data-rule="r1">an invoice</span> from
+        <span class="tk z" data-rule="r4">Spain</span> for a shipment to <span class="tk" data-rule="r4">the Netherlands</span> landed on my desk.
+        <span class="tk" data-rule="r2">The invoice</span> listed <span class="tk z" data-rule="r6">software licences</span> and
+        <span class="tk z" data-rule="r6">hardware parts</span>; everything is synced on
+        <span class="tk" data-rule="r3">the Internet</span>. It was <span class="tk" data-rule="r5">the third</span> invoice this quarter and
+        <span class="tk" data-rule="r5">the highest</span> amount we have ever paid. Our CEO repeats that digital tools should serve
+        <span class="tk" data-rule="r8">the many</span>, not <span class="tk" data-rule="r8">the few</span>.
+        On <span class="tk z" data-rule="r7">Mondays</span> we review costs before <span class="tk z" data-rule="r7">lunch</span>.
+      </div>
+    </div>
+    <div>
+      <button class="part" data-rule="r1"><b>① FIRST MENTION → a/an</b><br>Something new enters the conversation.</button>
+      <button class="part" data-rule="r2"><b>② SECOND MENTION / SPECIFIC → the</b><br>Now we know exactly which one.</button>
+      <button class="part" data-rule="r3"><b>③ UNIQUE NOUNS → the</b><br>the Sun, the Moon, the Internet…</button>
+      <button class="part" data-rule="r4" data-lv="medium hard"><b>④ GEOGRAPHY</b><br>the + rivers/seas/ranges/groups/plural countries · ∅ + lakes/single peaks/most countries.</button>
+      <button class="part" data-rule="r5"><b>⑤ SUPERLATIVES &amp; ORDINALS → the</b><br>the best, the most exciting, the third.</button>
+      <button class="part" data-rule="r6"><b>⑥ GENERAL PLURAL / UNCOUNTABLE → ∅</b><br>Talking about the whole category.</button>
+      <button class="part" data-rule="r7"><b>⑦ ROUTINES → ∅</b><br>Days, meals, sports, subjects, languages.</button>
+      <button class="part" data-rule="r8" data-lv="medium hard"><b>⑧ THE + ADJECTIVE = CATEGORY → the</b><br>the poor, the rich, the many, the few.</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 RULE BANK ============ -->
+<section class="sec" id="bank">
+  <div class="sechead"><span class="secnum">03</span><div>
+    <div class="kicker">Section 03 · Phrases</div><h2>The Rule Bank</h2>
+  </div></div>
+  <p>Ready-made examples organised by job. Copy them into your notebook or your writing — at your current level.</p>
+  <div class="grid3">
+    <div class="boxcard"><h3><span class="badge b-a">A / AN</span></h3>
+      <div class="entry"><code>I bought a notebook and an eraser.</code><button class="copy" data-copy="I bought a notebook and an eraser.">copy</button></div>
+      <div class="entry"><code>She is an engineer and he is a manager.</code><button class="copy" data-copy="She is an engineer and he is a manager.">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>We need a new printer and an extra screen.</code><button class="copy" data-copy="We need a new printer and an extra screen.">copy</button></div>
+      <div class="entry" data-lv="hard"><code>It's an honour to host a European partner.</code><button class="copy" data-copy="It's an honour to host a European partner.">copy</button></div>
+    </div>
+    <div class="boxcard"><h3><span class="badge b-t">THE</span></h3>
+      <div class="entry"><code>Look at the Moon tonight!</code><button class="copy" data-copy="Look at the Moon tonight!">copy</button></div>
+      <div class="entry"><code>The course was really interesting. (2nd mention)</code><button class="copy" data-copy="The course was really interesting.">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>the Nile · the Alps · the Sahara · the Canary Islands</code><button class="copy" data-copy="the Nile, the Alps, the Sahara, the Canary Islands">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>the Netherlands · the USA · the United Kingdom</code><button class="copy" data-copy="the Netherlands, the USA, the United Kingdom">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>the highest mountain · the first order · the only copy</code><button class="copy" data-copy="the highest mountain, the first order, the only copy">copy</button></div>
+      <div class="entry" data-lv="hard"><code>the Internet · the environment · the economy</code><button class="copy" data-copy="the Internet, the environment, the economy">copy</button></div>
+    </div>
+    <div class="boxcard"><h3><span class="badge b-z">∅ ZERO</span></h3>
+      <div class="entry"><code>∅ Music is my life. (general)</code><button class="copy" data-copy="Music is my life.">copy</button></div>
+      <div class="entry"><code>∅ football · ∅ chess ·  English · ∅ maths</code><button class="copy" data-copy="football, chess, English, maths">copy</button></div>
+      <div class="entry"><code>∅ Saturdays · ∅ June · ∅ dinner</code><button class="copy" data-copy="Saturdays, June, dinner">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>∅ Lake Como · ∅ Mount Etna · ∅ Sicily · ∅ Spain</code><button class="copy" data-copy="Lake Como, Mount Etna, Sicily, Spain">copy</button></div>
+      <div class="entry" data-lv="medium hard"><code>∅ information · ∅ sincerity · ∅ happiness</code><button class="copy" data-copy="information, sincerity, happiness">copy</button></div>
+      <div class="entry" data-lv="hard"><code>go to ∅ school · in ∅ hospital · in ∅ bed · by ∅ car</code><button class="copy" data-copy="go to school, in hospital, in bed, by car">copy</button></div>
+    </div>
+    <div class="boxcard" data-lv="medium hard"><h3>🔊 SOUND CHECK</h3>
+      <div class="entry"><code>a university · a uniform · a European</code><button class="copy" data-copy="a university, a uniform, a European">copy</button></div>
+      <div class="entry"><code>an hour · an honest answer · an umbrella</code><button class="copy" data-copy="an hour, an honest answer, an umbrella">copy</button></div>
+      <div class="entry" data-lv="hard"><code>an MBA · an FAQ · a one-way street</code><button class="copy" data-copy="an MBA, an FAQ, a one-way street">copy</button></div>
+    </div>
+    <div class="boxcard" data-lv="hard"><h3>⚠ TRAPS</h3>
+      <div class="entry"><code>play ∅ football BUT play the piano</code><button class="copy" data-copy="play football BUT play the piano">copy</button></div>
+      <div class="entry"><code>I'd like a coffee. = one cup, please</code><button class="copy" data-copy="I'd like a coffee, please.">copy</button></div>
+      <div class="entry"><code>the English = the people · English = the language</code><button class="copy" data-copy="the English = the people; English = the language">copy</button></div>
+      <div class="entry"><code>go to school (student) vs go to the school (visitor)</code><button class="copy" data-copy="go to school (student) vs go to the school (visitor)">copy</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 ERROR LAB ============ -->
+<section class="sec" id="traps">
+  <div class="sechead"><span class="secnum">04</span><div>
+    <div class="kicker">Section 04 · Register</div><h2>Error Lab</h2>
+  </div></div>
+  <p>These sentences came out of real students' emails. Tap each card to operate on it and fix the article.</p>
+  <div class="pill"> <b>GRAMMAR PILL ·</b> Indirect check: ask yourself <code>specific?</code> → the · <code>new &amp; countable?</code> → a/an · <code>general / routine?</code> → ∅. Then check the <b>sound</b>: <code>a university</code>, <code>an hour</code>.</div>
+  <div class="grid3">
+    <button class="errcard"><div class="front"><span class="wrong">I love the music.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">I love music.</span><span class="why">Generale → zero article. (IT: la musica in generale)</span></div></button>
+    <button class="errcard"><div class="front"><span class="wrong">She is the doctor.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">She is a doctor.</span><span class="why">Mestiere → a/an.</span></div></button>
+    <button class="errcard"><div class="front"><span class="wrong">He plays the football.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">He plays football.</span><span class="why">Sport → zero article.</span></div></button>
+    <button class="errcard" data-lv="medium hard"><div class="front"><span class="wrong">We visited the Lake Garda.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">We visited Lake Garda.</span><span class="why">Laghi → zero article.</span></div></button>
+    <button class="errcard" data-lv="medium hard"><div class="front"><span class="wrong">She speaks the Italian fluently.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">She speaks Italian fluently.</span><span class="why">Lingue → zero article.</span></div></button>
+    <button class="errcard" data-lv="medium hard"><div class="front"><span class="wrong">We met an university student.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">We met a university student.</span><span class="why">/juː/ = suono consonantico → a.</span></div></button>
+    <button class="errcard" data-lv="hard"><div class="front"><span class="wrong">He's in the hospital as a patient.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">He's in hospital. (BrE)</span><span class="why">Istituzione con funzione propria → ∅.</span></div></button>
+    <button class="errcard" data-lv="hard"><div class="front"><span class="wrong">She plays piano beautifully.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">She plays the piano beautifully.</span><span class="why">Strumento musicale → the (ma sport → ∅!).</span></div></button>
+    <button class="errcard" data-lv="hard"><div class="front"><span class="wrong">I'd like the coffee, please.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">I'd like a coffee, please.</span><span class="why">= una tazza: numerabile singolare → a.</span></div></button>
+    <button class="errcard" data-lv="hard"><div class="front"><span class="wrong">The life is short.</span><div class="hint">tap to fix</div></div><div class="back"><span class="right">Life is short.</span><span class="why">Nome astratto generale → ∅.</span></div></button>
+  </div>
+</section>
+
+<!-- ============ 05 PRACTICE ============ -->
+<section class="sec" id="practice">
+  <div class="sechead"><span class="secnum">05</span><div>
+    <div class="kicker">Section 05 · Exercises</div><h2>The Practice Arena</h2>
+  </div></div>
+  <p>Four exercises, all corrected automatically. They adapt to your level — try switching the rail after finishing one!</p>
+  <div class="scorebar"><span>SESSION SCORE</span><span><span id="scoreNum">0</span> / <span id="scoreDen">0</span></span></div>
+
+  <div class="exbox">
+    <h3>01 · Sort the articles</h3>
+    <div class="status" id="stSort">not checked</div>
+    <p>Tap a chip, then tap the zone where it belongs. Tap a placed chip to send it back to the bank. Then press CHECK.</p>
+    <div id="sortBank"></div>
+    <div class="zones">
+      <div class="zone" id="zone-aan"><h4>A / AN</h4></div>
+      <div class="zone" id="zone-the"><h4>THE</h4></div>
+      <div class="zone" id="zone-zero"><h4>ZERO ∅</h4></div>
+    </div>
+    <p><button class="btn" id="checkSort">Check sorter</button> <button class="btn ghost" id="resetSort">Reset</button></p>
+  </div>
+
+  <div class="exbox">
+    <h3>02 · Complete the text</h3>
+    <div class="status" id="stGaps">not checked</div>
+    <p>Tap a word from the bank to fill the next gap. Tap a filled gap to put the word back. Watch out: there are extra words!</p>
+    <div id="gapBank"></div>
+    <div id="gapText"></div>
+    <p><button class="btn" id="checkGaps">Check gaps</button> <button class="btn ghost" id="resetGaps">Reset</button></p>
+  </div>
+
+  <div class="exbox">
+    <h3>03 · Quick quiz</h3>
+    <div class="status" id="stQuiz">not checked</div>
+    <div id="quizBox"></div>
+    <p><button class="btn" id="checkQuiz">Check quiz</button> <button class="btn ghost" id="resetQuiz">Reset</button></p>
+  </div>
+
+  <div class="exbox">
+    <h3>04 · Writing workshop <em>your turn ✍</em></h3>
+    <p id="wsPrompt"></p>
+    <textarea id="wsText" placeholder="Write here…"></textarea>
+    <div class="status" id="wsCount">0 words</div>
+    <p><button class="btn ghost" id="wsModelBtn">Show model answer</button></p>
+    <div id="wsModel" class="hidden"></div>
+  </div>
+</section>
+
+<!-- ============ 06 CHECKLIST ============ -->
+<section class="sec" id="send">
+  <div class="sechead"><span class="secnum">06</span><div>
+    <div class="kicker">Section 06 · Quality control</div><h2>Before you hand it in</h2>
+  </div></div>
+  <div class="grid2">
+    <div class="do"><b>DO</b><ul>
+      <li>Check the <b>sound</b>, not the spelling (a university / an hour).</li>
+      <li>Use <b>the</b> for second mention and specific nouns.</li>
+      <li>Use <b>∅</b> for general plurals, uncountables, abstract nouns.</li>
+      <li>Use <b>the</b> with superlatives and ordinals.</li>
+      <li>Use <b>∅</b> with sports, languages, meals, days, months.</li>
+      <li>Learn the geography lists (the Alps vs Lake Como).</li>
+      <li>When in doubt ask: <i>specific or general?</i></li>
+    </ul></div>
+    <div class="dont"><b>DON'T</b><ul>
+      <li>Say <s>"I love the music"</s> (general → ∅).</li>
+      <li>Say <s>"She is the doctor"</s> (job → a/an).</li>
+      <li>Say <s>"play the football"</s> (sport → ∅).</li>
+      <li>Say <s>"the Lake Como"</s> (lake → ∅).</li>
+      <li>Say <s>"a hour"</s> (sound! → an hour).</li>
+      <li>Say <s>"the life is short"</s> (abstract → ∅).</li>
+    </ul></div>
+  </div>
+  <h3>Final checklist <span id="finCount">0 / 8</span></h3>
+  <div class="final" id="finalList">
+    <label><input type="checkbox"> First mention of a countable noun → <b>a/an</b>.</label>
+    <label><input type="checkbox"> Second mention / specific noun → <b>the</b>.</label>
+    <label><input type="checkbox"> Unique nouns &amp; "group" geography (rivers, seas, ranges, plural countries) → <b>the</b>.</label>
+    <label><input type="checkbox"> Superlatives &amp; ordinals → <b>the</b>.</label>
+    <label><input type="checkbox"> General plurals, uncountables, abstract nouns → <b>∅</b>.</label>
+    <label><input type="checkbox"> Sports, languages, meals, days, months, subjects → <b>∅</b>.</label>
+    <label><input type="checkbox"> Sound checked: <b>a</b> university / <b>an</b> hour.</label>
+    <label><input type="checkbox"> Professions → <b>a/an</b> (She is a manager.).</label>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>✉ The Article Desk</h3>
+    <p>Interactive grammar lesson · English · Classe 3ª — Sistemi Informativi Aziendali. Use the LEVEL rail to adapt every text and exercise to your class, at any moment.</p>
+    <div class="teach">
+      🇮🇹 <b>NOTE PER IL DOCENTE (IT)</b><br>
+      Livelli: Easy ≈ A1/A2 guidato · Medium ≈ A2+/B1 semi-guidato · Hard ≈ B1/B2 (suoni, istituzioni, espressioni fisse, trap). Lo slider a destra/in basso cambia tutta la pagina in tempo reale; la scelta resta salvata nel browser. Scorciatoie: tasti 1, 2, 3.<br>
+      Uso suggerito (2 ore): ① teoria + mention chain + animated grammar (20'); ② anatomia del testo proiettata, card cliccabili (20'); ③ Rule Bank come dispensa lessicale (15'); ④ esercizi individuali con punteggio (30'); ⑤ Writing workshop come compito o verifica formativa (35'). Il pulsante ⎙ PRINT produce una versione stampabile (livello corrente).
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const L = {
+ easy:{cefr:"A1/A2 · guided",
+  sorter:[{t:"egg",a:"aan"},{t:"sun",a:"the"},{t:"bananas (in general)",a:"zero"},{t:"book on my desk",a:"the"},{t:"pen",a:"aan"},{t:"apple",a:"aan"},{t:"Moon",a:"the"},{t:"football (play ~)",a:"zero"},{t:"English (language)",a:"zero"}],
+  bankTokens:["a","a","a","an","an","an","the","the","the","the","zero","zero","zero","zero"],
+  gaps:["On ",{g:"zero"}," Saturday my class organised ",{g:"a"}," trip to ",{g:"a"}," science museum. ",{g:"the"}," museum had ",{g:"zero"}," interactive robots. My favourite was ",{g:"an"}," old robot named Nino. ",{g:"zero"}," Robots never get tired, and Nino was ",{g:"the"}," best guide of the day!"],
+  quiz:[
+   {q:"You mention a countable thing for the first time. You use…",o:["a / an","the","no article"],c:0},
+   {q:"She is ___ doctor in Milan.",o:["a","the","–"],c:0},
+   {q:"I love ___ music.",o:["a","the","–"],c:2},
+   {q:"___ sun is very bright today.",o:["A","The","–"],c:1},
+   {q:"He plays ___ tennis every Sunday.",o:["a","the","–"],c:2}],
+  prompt:"Write 5–6 sentences about your favourite day: what you eat, play and study. Include at least: one a/an, one the, two zero articles.",
+  modelAns:"On Saturday I eat a big breakfast and drink an orange juice. The juice is fresh from my grandpa's trees. I play football with my friends and we listen to music. Music makes us happy. In the evening I watch the Moon from my balcony: it is the best moment of the day!"},
+ medium:{cefr:"A2+/B1 · semi-guided",
+  sorter:[{t:"honest answer",a:"aan"},{t:"Alps",a:"the"},{t:"Lake Maggiore",a:"zero"},{t:"umbrella",a:"aan"},{t:"Netherlands",a:"the"},{t:"history (subject)",a:"zero"},{t:"richest city in Italy",a:"the"},{t:"new bike (first mention)",a:"aan"},{t:"bike I bought yesterday",a:"the"}],
+  bankTokens:["a","a","a","an","an","an","the","the","the","the","zero","zero","zero","zero"],
+  gaps:["In ",{g:"zero"}," September our school hosted ",{g:"an"}," exchange with ",{g:"zero"}," Spain. ",{g:"the"}," students from Madrid visited ",{g:"the"}," Colosseum and ",{g:"zero"}," ancient museums. They said Rome was ",{g:"the"}," most beautiful city they had ever seen. On ",{g:"zero"}," Monday we played football together."],
+  quiz:[
+   {q:"___ Alps are higher than ___ Apennines.",o:["The / the","– / –","The / –"],c:0},
+   {q:"We visited ___ Lake Como last summer.",o:["a","the","–"],c:2},
+   {q:"It was ___ most exciting job interview ever!",o:["a","the","–"],c:1},
+   {q:"He studies at ___ university in Turin.",o:["a","an","the"],c:0},
+   {q:"She speaks ___ Italian fluently.",o:["a","the","–"],c:2}],
+  prompt:"Write a short email (60–80 words) to a friend about a school trip: first mention (a/an) → second mention (the), one superlative, one geographical name with the and one with zero, one zero routine (day / meal / sport).",
+  modelAns:"Hi Sam! Last week my class went on a trip to Venice. The trip was amazing! We visited a small glass factory on Murano and the Doge's Palace. It was the most beautiful day of the year! We ate dinner at nine and played football on the beach. On Sunday morning we took the train home. (Notice: dinner, football, Sunday → zero article!)"},
+ hard:{cefr:"B1/B2 · formal & traps",
+  sorter:[{t:"hour",a:"aan"},{t:"European project",a:"aan"},{t:"United Kingdom",a:"the"},{t:"Mount Etna",a:"zero"},{t:"poor (category)",a:"the"},{t:"piano (play ~)",a:"the"},{t:"school (go to ~ as a student)",a:"zero"},{t:"coffee (one cup, please)",a:"aan"},{t:"life (abstract, general)",a:"zero"}],
+  bankTokens:["a","a","a","an","an","the","the","the","the","zero","zero","zero","zero"],
+  gaps:["On ",{g:"zero"}," Monday ",{g:"an"}," invoice from ",{g:"the"}," United Kingdom landed on my desk. ",{g:"the"}," invoice included ",{g:"a"}," charge for ",{g:"zero"}," technical support. It was ",{g:"the"}," third invoice this quarter, and our ",{g:"zero"}," accountants are checking it now."],
+  quiz:[
+   {q:"It took ___ hour to fix the server.",o:["a","an","–"],c:1},
+   {q:"She plays ___ piano but hates ___ chess.",o:["the / –","– / –","the / the"],c:0},
+   {q:"He's in ___ hospital as a patient (BrE).",o:["a","the","–"],c:2},
+   {q:"Could I have ___ coffee, please? (one cup)",o:["a","the","–"],c:0},
+   {q:"___ English are fond of tea. (the people)",o:["–","The","A"],c:1}],
+  prompt:"Write a business email (80–100 words) from your company to a foreign supplier: refer to an invoice or order (first → second mention), mention two countries (one with ∅, one with the), one abstract noun with ∅, one 'the + adjective' category, one fixed expression with ∅ (by email / before lunch / on Mondays).",
+  modelAns:"Dear Ms Harper, on Monday we received an invoice from your office in Spain for a shipment to the Netherlands. The invoice includes a charge for technical support, but information in our contract says support is free in the first year. It is the third invoice this quarter and the highest amount so far. Our CEO repeats that technology should serve the many, not the few, so we review costs before lunch every Monday. We should be grateful if you would check the figures. We look forward to your early reply. Yours sincerely, Marco Rossi, Purchasing Manager"}
+};
+const SYM={a:"a",an:"an",the:"the",zero:"–"};
+const ZLAB={aan:"A/AN",the:"THE",zero:"∅"};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let level=localStorage.getItem("articleDeskLevel")||"medium";
+if(!L[level])level="medium";
+let S={}, pins=new Set();
+
+/* ================= LEVEL ================= */
+function applyLevel(lv){
+  level=lv; document.body.dataset.level=lv;
+  localStorage.setItem("articleDeskLevel",lv);
+  $$(".lvbtn,.railbtn").forEach(b=>b.classList.toggle("on",b.dataset.lv===lv));
+  $("#cefrBadge").textContent=L[lv].cefr;
+  $$("[data-lv]").forEach(el=>{
+    if(el.classList.contains("lvbtn")||el.classList.contains("railbtn"))return;
+    el.classList.toggle("hidden",!el.dataset.lv.split(/\s+/).includes(lv));
+  });
+  pins.clear(); $$(".part").forEach(p=>p.classList.remove("pin"));
+  resetAll();
+}
+function resetAll(){
+  const d=L[level];
+  S={sorter:{order:shuffle(d.sorter.map((_,i)=>i)),placed:{aan:[],the:[],zero:[]},sel:null,checked:false},
+     gaps:{values:Array(countGaps()).fill(null),chips:d.bankTokens.map((w,i)=>({id:i,word:w,used:false})),checked:false},
+     quiz:{checked:false},
+     parts:{sorter:0,gaps:0,quiz:0}};
+  renderSorter(); renderGaps(); renderQuiz(); renderWorkshop();
+  setStatus("stSort","not checked",""); setStatus("stGaps","not checked",""); setStatus("stQuiz","not checked","");
+  paintScore();
+}
+function countGaps(){return L[level].gaps.filter(x=>x.g).length}
+function den(){return L[level].sorter.length+countGaps()+L[level].quiz.length}
+function paintScore(){const p=S.parts;$("#scoreNum").textContent=p.sorter+p.gaps+p.quiz;$("#scoreDen").textContent=den();}
+function setStatus(id,txt,cls){const e=$("#"+id);e.textContent=txt;e.className="status "+(cls||"");}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1600);}
+
+/* ================= SORTER ================= */
+function renderSorter(){
+  const d=L[level].sorter,st=S.sorter;
+  const inZone=new Set([].concat(st.placed.aan,st.placed.the,st.placed.zero));
+  let bank="";
+  st.order.forEach(id=>{if(!inZone.has(id)){
+    bank+='<button class="chip'+(st.sel===id?" sel":"")+(st.checked?(st.placedOk&&false?"":""):"")+'" data-id="'+id+'">___ '+d[id].t+"</button>";}});
+  $("#sortBank").innerHTML=bank||"<i style='color:var(--muted)'>All chips placed — press CHECK.</i>";
+  ["aan","the","zero"].forEach(z=>{
+    const zone=$("#zone-"+z);
+    zone.innerHTML="<h4>"+(z==="aan"?"A / AN":z==="the"?"THE":"ZERO ∅")+"</h4>"+
+      st.placed[z].map(id=>{
+        let cls="chip"; if(st.checked)cls+=(d[id].a===z?" ok":" bad");
+        return '<button class="'+cls+'" data-id="'+id+'" data-zone="'+z+'">'+SYM[z==="aan"?"a":z==="the"?"the":"zero"].replace("–","∅")+" "+d[id].t+"</button>";}).join("");
+  });
+}
+document.addEventListener("click",e=>{
+  const chip=e.target.closest(".chip"); if(chip&&chip.dataset.id!==undefined&&$("#sortBank").contains(chip)){
+    const id=+chip.dataset.id; S.sorter.sel=(S.sorter.sel===id?null:id); S.sorter.checked=false; renderSorter(); return;}
+  if(chip&&chip.dataset.zone){const id=+chip.dataset.id,z=chip.dataset.zone;
+    S.sorter.placed[z]=S.sorter.placed[z].filter(x=>x!==id); S.sorter.checked=false; renderSorter(); return;}
+  const zone=e.target.closest(".zone"); if(zone&&S.sorter.sel!==null){
+    const z=zone.id.replace("zone-",""); S.sorter.placed[z].push(S.sorter.sel); S.sorter.sel=null; S.sorter.checked=false; renderSorter(); return;}
+});
+$("#checkSort").onclick=()=>{const d=L[level].sorter,st=S.sorter;let ok=0,n=0;
+  ["aan","the","zero"].forEach(z=>{n+=st.placed[z].length;st.placed[z].forEach(id=>{if(d[id].a===z)ok++})});
+  st.checked=true;S.parts.sorter=ok;renderSorter();paintScore();
+  setStatus("stSort",(ok===d.length?"✔ ":"⚠ ")+ok+"/"+d.length+" correct",ok===d.length?"ok":"bad");};
+$("#resetSort").onclick=()=>{S.sorter.placed={aan:[],the:[],zero:[]};S.sorter.sel=null;S.sorter.checked=false;S.parts.sorter=0;renderSorter();paintScore();setStatus("stSort","not checked","");};
+
+/* ================= GAPS ================= */
+function gapAnswers(){return L[level].gaps.filter(x=>x.g).map(x=>x.g)}
+function renderGaps(){
+  const g=L[level].gaps,v=S.gaps.values;let gi=0,html="";
+  g.forEach(part=>{
+    if(typeof part==="string")html+=part;
+    else{const val=v[gi];html+='<button class="gap'+(S.gaps.checked?(val&&S.gaps.chips[val].word===part.g?" ok":(val?" bad":" bad")):"")+'" data-gi="'+gi+'">'+(val!==null?SYM[S.gaps.chips[val].word]:"···")+"</button>";gi++;}
+  });
+  $("#gapText").innerHTML=html;
+  $("#gapBank").innerHTML=S.gaps.chips.map(c=>'<button class="chip'+(c.used?" used":"")+'" data-cid="'+c.id+'">'+SYM[c.word]+"</button>").join("");
+}
+document.addEventListener("click",e=>{
+  const bc=e.target.closest("#gapBank .chip"); if(bc&&!bc.classList.contains("used")){
+    const cid=+bc.dataset.cid,i=S.gaps.values.indexOf(null);
+    if(i===-1){toast("No empty gaps left");return}
+    S.gaps.values[i]=cid;S.gaps.chips[cid].used=true;S.gaps.checked=false;renderGaps();return;}
+  const gp=e.target.closest(".gap"); if(gp){const i=+gp.dataset.gi,v=S.gaps.values[i];
+    if(v!==null){S.gaps.chips[v].used=false;S.gaps.values[i]=null;S.gaps.checked=false;renderGaps();}return;}
+});
+$("#checkGaps").onclick=()=>{const ans=gapAnswers();let ok=0;
+  ans.forEach((a,i)=>{const v=S.gaps.values[i];if(v!==null&&S.gaps.chips[v].word===a)ok++});
+  S.gaps.checked=true;S.parts.gaps=ok;renderGaps();paintScore();
+  setStatus("stGaps",(ok===ans.length?"✔ ":"⚠ ")+ok+"/"+ans.length+" correct",ok===ans.length?"ok":"bad");};
+$("#resetGaps").onclick=()=>{S.gaps.values=Array(countGaps()).fill(null);S.gaps.chips.forEach(c=>c.used=false);S.gaps.checked=false;S.parts.gaps=0;renderGaps();paintScore();setStatus("stGaps","not checked","");};
+
+/* ================= QUIZ ================= */
+function renderQuiz(){
+  $("#quizBox").innerHTML=L[level].quiz.map((q,i)=>"<fieldset><legend>"+(i+1)+". "+q.q+"</legend>"+
+    q.o.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+"</label>").join("")+"</fieldset>").join("");
+}
+$("#checkQuiz").onclick=()=>{let ok=0;L[level].quiz.forEach((q,i)=>{
+    const sel=document.querySelector('input[name="q'+i+'"]:checked');
+    if(sel&&+sel.value===q.c)ok++;});
+  S.quiz.checked=true;S.parts.quiz=ok;paintScore();
+  const n=L[level].quiz.length;
+  setStatus("stQuiz",(ok===n?"✔ ":"⚠ ")+ok+"/"+n+" correct",ok===n?"ok":"bad");};
+$("#resetQuiz").onclick=()=>{renderQuiz();S.parts.quiz=0;paintScore();setStatus("stQuiz","not checked","");};
+
+/* ================= WORKSHOP ================= */
+function renderWorkshop(){
+  $("#wsPrompt").innerHTML="<b>Your task ("+level+"):</b> "+L[level].prompt;
+  $("#wsModel").textContent=L[level].modelAns;$("#wsModel").classList.add("hidden");
+}
+$("#wsText").addEventListener("input",e=>{$("#wsCount").textContent=(e.target.value.trim()?e.target.value.trim().split(/\s+/).length:0)+" words";});
+$("#wsModelBtn").onclick=()=>{$("#wsModel").classList.toggle("hidden");};
+
+/* ================= MODEL HIGHLIGHT ================= */
+function lit(rule,on){$$('.model-text:not(.hidden) .tk[data-rule="'+rule+'"]').forEach(s=>s.classList.toggle("lit",on));}
+$$(".part").forEach(p=>{
+  const r=p.dataset.rule;
+  p.addEventListener("mouseenter",()=>lit(r,true));
+  p.addEventListener("mouseleave",()=>lit(r,pins.has(r)));
+  p.addEventListener("click",()=>{if(pins.has(r)){pins.delete(r);p.classList.remove("pin");lit(r,false);}else{pins.add(r);p.classList.add("pin");lit(r,true);}});
+});
+
+/* ================= FLIP / COPY / CHAIN / ANIM ================= */
+document.addEventListener("click",e=>{
+  const f=e.target.closest(".flipcard,.errcard"); if(f){f.classList.toggle("flipped");return}
+  const c=e.target.closest(".copy"); if(c){navigator.clipboard&&navigator.clipboard.writeText(c.dataset.copy);toast("Copied ✔");return}
+  const s=e.target.closest(".step"); if(s){$$(".step").forEach(x=>x.classList.toggle("on",x===s));
+    $$(".steppanel").forEach(p=>p.classList.toggle("hidden",p.dataset.s!==s.dataset.s));}
+});
+const FR=[
+ {h:'I bought <span class="ha">a</span> newspaper.',c:"PRIMA MENZIONE → a/an"},
+ {h:'<span class="ht">The</span> newspaper was on the table.',c:"SECONDA MENZIONE → the"},
+ {h:'<span class="hz">∅</span> Newspapers inform us.',c:"GENERALE (plurale) → zero article"},
+ {h:'<span class="ha">an</span> hour · <span class="ha">a</span> university',c:"SUONO, NON ORTOGRAFIA"}
+];
+let ai=0,atimer=null;
+function showFrame(){$("#animStage").innerHTML=FR[ai].h;$("#animCap").textContent=FR[ai].c;}
+$("#animPlay").onclick=function(){
+  if(atimer){clearInterval(atimer);atimer=null;this.textContent="▶ Animated grammar";}
+  else{showFrame();atimer=setInterval(()=>{ai=(ai+1)%FR.length;showFrame();},1700);this.textContent="⏸ Pause";}
+};
+showFrame();
+
+/* ================= CHECKLIST / MISC ================= */
+$("#finalList").addEventListener("change",()=>{
+  const n=$$("#finalList input:checked").length;$("#finCount").textContent=n+" / 8";});
+$("#printBtn").onclick=()=>window.print();
+$$(".lvbtn,.railbtn").forEach(b=>b.addEventListener("click",()=>applyLevel(b.dataset.lv)));
+document.addEventListener("keydown",e=>{
+  if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  if(e.key==="1")applyLevel("easy");if(e.key==="2")applyLevel("medium");if(e.key==="3")applyLevel("hard");});
+applyLevel(level);
+</script>
+</body>
+</html>
