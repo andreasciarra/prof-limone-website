@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing an Enquiry — Business English · Classe 5ª AFM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500..900&family=Public+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --paper:#f7f4ec; --panel:#fffdf7; --ink:#1d2540; --ink-soft:#525b76;
+  --red:#cf3f36; --blue:#2b5fd9; --amber:#dfa312; --green:#1f7a4d;
+  --marker:#ffe37a; --line:rgba(29,37,64,.16); --hard:6px 6px 0 rgba(29,37,64,.14);
+  --c1:#2b5fd9; --c2:#b07c06; --c3:#cf3f36;
+  --display:"Fraunces",serif; --body:"Public Sans",sans-serif; --mono:"Space Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); background:var(--paper);
+  background-image:repeating-linear-gradient(transparent 0 35px, rgba(43,95,217,.055) 35px 36px);
+  line-height:1.6; overflow-x:hidden;
+}
+body::before{ /* notebook red margin */
+  content:""; position:fixed; top:0; bottom:0; left:72px; width:2px;
+  background:rgba(207,63,54,.18); z-index:0; pointer-events:none;
+}
+section{position:relative; z-index:1}
+.wrap{max-width:1120px; margin:0 auto; padding:0 28px}
+::selection{background:var(--marker)}
+
+/* ============ LEVEL SWITCHING (global) ============ */
+.lv{display:none}
+.lvb{display:none}
+body[data-level="1"] .lv.lv1{display:inline}
+body[data-level="2"] .lv.lv2{display:inline}
+body[data-level="3"] .lv.lv3{display:inline}
+body[data-level="1"] .lvb.lv1, body[data-level="2"] .lvb.lv2, body[data-level="3"] .lvb.lv3{display:block}
+body[data-level="1"] li.lv1, body[data-level="2"] li.lv2, body[data-level="3"] li.lv3{display:list-item}
+body[data-level="1"] .vcard[data-min="2"], body[data-level="1"] .vcard[data-min="3"],
+body[data-level="2"] .vcard[data-min="3"]{display:none}
+
+/* ============ TOP BAR ============ */
+.topbar{
+  position:sticky; top:0; z-index:50; background:rgba(247,244,236,.92); backdrop-filter:blur(6px);
+  border-bottom:2px solid var(--ink); display:flex; align-items:center; gap:18px;
+  padding:10px 24px; font-family:var(--mono); font-size:.72rem; letter-spacing:.08em;
+}
+.homelink{color:var(--ink-soft); text-decoration:none; font-weight:700; white-space:nowrap}
+.homelink:hover{color:var(--red)}
+.brand{font-weight:700; font-size:.85rem; display:flex; align-items:center; gap:8px}
+.brand .env{display:inline-block; width:20px;height:14px; border:2px solid var(--ink); position:relative; background:#fff}
+.brand .env::after{content:""; position:absolute; inset:0; border-top:2px solid var(--ink); transform:scaleY(1) translateY(0); clip-path:polygon(0 0,100% 0,50% 62%)}
+.topnav{display:flex; gap:14px; margin-left:auto}
+.topnav a{color:var(--ink-soft); text-decoration:none; padding:2px 4px; border-bottom:2px solid transparent; transition:.2s}
+.topnav a:hover{color:var(--red); border-color:var(--red)}
+.level-chip{border:2px solid var(--lv-acc,var(--c2)); color:var(--lv-acc,var(--c2)); padding:3px 10px; border-radius:99px; font-weight:700; white-space:nowrap; transition:.3s}
+body[data-level="1"]{--lv-acc:var(--c1)} body[data-level="3"]{--lv-acc:var(--c3)}
+.printbtn{background:var(--ink); color:var(--paper); border:none; font-family:var(--mono); font-size:.7rem; padding:6px 12px; cursor:pointer; box-shadow:3px 3px 0 rgba(29,37,64,.25); transition:.15s}
+.printbtn:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(29,37,64,.3)}
+.printbtn:active{transform:translate(2px,2px); box-shadow:none}
+@media(max-width:860px){.topnav{display:none}}
+
+/* ============ LEVEL RAIL (fixed, follows scroll) ============ */
+.rail{
+  position:fixed; z-index:90; right:18px; top:50%; transform:translateY(-50%);
+  background:var(--panel); border:2px solid var(--ink); border-radius:14px;
+  box-shadow:var(--hard); padding:12px 10px; display:flex; flex-direction:column; align-items:center; gap:8px;
+  width:86px;
+}
+.rail-cap{font-family:var(--mono); font-size:.58rem; letter-spacing:.22em; color:var(--ink-soft)}
+.rail-track{position:relative; display:flex; flex-direction:column; gap:6px}
+.rail-knob{
+  position:absolute; left:-4px; right:-4px; height:50px; border-radius:10px;
+  background:var(--lv-acc,var(--c2)); opacity:.16; transition:.35s cubic-bezier(.6,1.6,.4,1); top:0;
+}
+.rail-stop{
+  position:relative; z-index:2; height:50px; width:64px; background:none; border:none; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; color:var(--ink-soft); transition:.25s;
+}
+.rail-stop i{width:10px;height:10px;border-radius:50%;border:2px solid currentColor; transition:.25s; display:block}
+.rail-stop:hover{color:var(--ink)}
+.rail-stop[aria-pressed="true"]{color:var(--lv-acc); font-weight:700; transform:scale(1.06)}
+.rail-stop[aria-pressed="true"] i{background:currentColor; box-shadow:0 0 0 4px color-mix(in srgb, currentColor 20%, transparent)}
+.rail-tag{font-family:var(--mono); font-size:.58rem; text-align:center; color:var(--lv-acc); font-weight:700; line-height:1.4; min-height:2.6em}
+.rail-hint{font-family:var(--mono); font-size:.52rem; color:var(--ink-soft); opacity:.7}
+@media(max-width:860px){
+  body::before{display:none}
+  .rail{right:0; left:0; top:auto; bottom:0; transform:none; width:auto; flex-direction:row; justify-content:center; border-radius:0; border-left:none;border-right:none;border-bottom:none; padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+  .rail-cap,.rail-hint{display:none}
+  .rail-track{flex-direction:row; gap:10px}
+  .rail-knob{height:auto; top:-4px; bottom:-4px; left:0; right:auto; width:80px}
+  .rail-stop{width:80px; height:46px}
+  .rail-tag{min-height:0; align-self:center; margin-left:6px}
+  body{padding-bottom:88px}
+}
+
+/* ============ TOAST STAMP ============ */
+.toast{
+  position:fixed; z-index:95; right:130px; top:50%; transform:translateY(-50%) rotate(-8deg) scale(.6);
+  border:3px dashed var(--lv-acc,var(--c2)); color:var(--lv-acc,var(--c2)); background:rgba(255,253,247,.94);
+  font-family:var(--mono); font-weight:700; font-size:.85rem; letter-spacing:.14em; padding:14px 20px;
+  opacity:0; pointer-events:none; transition:.3s cubic-bezier(.5,1.8,.4,1); border-radius:6px;
+}
+.toast.show{opacity:1; transform:translateY(-50%) rotate(-8deg) scale(1)}
+@media(max-width:860px){.toast{right:50%; transform:translate(50%,-140%) rotate(-8deg) scale(.6); top:auto; bottom:80px}
+.toast.show{transform:translate(50%,-140%) rotate(-8deg) scale(1)}}
+
+/* ============ TYPO HELPERS ============ */
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.28em; color:var(--red); text-transform:uppercase; font-weight:700}
+.sec-title{font-family:var(--display); font-weight:900; font-size:clamp(2rem,4.6vw,3.3rem); line-height:1.05; margin:.35em 0 .3em}
+.sec-title em{font-style:italic; background:linear-gradient(180deg, transparent 58%, var(--marker) 58%);}
+.lede{color:var(--ink-soft); max-width:62ch; font-size:1.05rem}
+.airmail{height:7px; background:repeating-linear-gradient(-45deg, var(--red) 0 12px, var(--paper) 12px 22px, var(--blue) 22px 34px, var(--paper) 34px 44px); border-radius:4px; margin:14px 0 22px; max-width:340px}
+.panel{background:var(--panel); border:1.5px solid var(--ink); border-radius:12px; box-shadow:var(--hard)}
+.tag{display:inline-block; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; border:1.5px solid var(--ink); padding:2px 9px; border-radius:99px; text-transform:uppercase}
+
+/* reveal on scroll */
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1)}
+.reveal.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important; transition:none!important}
+  .reveal{opacity:1; transform:none}
+}
+
+/* ============ HERO ============ */
+.hero{padding:64px 0 30px; overflow:hidden}
+.hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center}
+.hero h1{font-family:var(--display); font-weight:900; font-size:clamp(2.8rem,7vw,5.2rem); line-height:.98; letter-spacing:-.01em}
+.hero h1 .swash{font-style:italic; color:var(--red); position:relative; white-space:nowrap}
+.hero h1 .swash::after{content:""; position:absolute; left:-2%; right:-2%; bottom:8%; height:.28em; background:var(--marker); z-index:-1; transform:skew(-8deg)}
+.hero .sub{margin-top:18px; font-size:1.08rem; color:var(--ink-soft); max-width:52ch}
+.hero .cefr{display:flex; gap:10px; margin-top:22px; flex-wrap:wrap}
+.cefr .tag{background:#fff}
+.cefr .tag b{color:var(--ink)}
+.scrollcue{margin-top:26px; font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; color:var(--ink-soft); animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* animated email card */
+.mailbox{position:relative}
+.mail{background:var(--panel); border:2px solid var(--ink); border-radius:12px; box-shadow:10px 10px 0 rgba(29,37,64,.16); overflow:hidden; transform:rotate(1.2deg); transition:transform .4s}
+.mail:hover{transform:rotate(0deg) translateY(-4px)}
+.mail-bar{display:flex; gap:6px; padding:10px 14px; border-bottom:2px solid var(--ink); background:#fff}
+.mail-bar i{width:11px;height:11px;border-radius:50%; border:2px solid var(--ink)}
+.mail-bar i:nth-child(1){background:var(--red)} .mail-bar i:nth-child(2){background:var(--amber)} .mail-bar i:nth-child(3){background:var(--green)}
+.mail-bar span{margin-left:auto; font-family:var(--mono); font-size:.6rem; letter-spacing:.15em; color:var(--ink-soft)}
+.mail-body{padding:18px 20px 22px; font-size:.92rem}
+.mail-field{font-family:var(--mono); font-size:.74rem; color:var(--ink-soft); margin-bottom:5px}
+.mail-field b{color:var(--ink)}
+.mail-subject{font-family:var(--mono); font-weight:700; font-size:.86rem; color:var(--blue); min-height:1.5em; border-bottom:2px dashed var(--line); padding-bottom:8px; margin-bottom:12px}
+.caret{display:inline-block; width:8px; height:1em; background:var(--blue); vertical-align:-2px; animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.mail-line{opacity:0; transform:translateX(-10px); transition:.5s ease; margin-bottom:6px}
+.mail-line.show{opacity:1; transform:none}
+.stamp{
+  position:absolute; top:-22px; right:-16px; border:2.5px dashed var(--red); color:var(--red);
+  font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.12em; text-align:center;
+  padding:10px 12px; transform:rotate(8deg); background:rgba(255,253,247,.9); border-radius:6px; line-height:1.5;
+  animation:floaty 5s ease-in-out infinite;
+}
+.postmark{position:absolute; left:-30px; bottom:-28px; width:96px; height:96px; border:2px solid var(--ink-soft); border-radius:50%; opacity:.4; display:flex; align-items:center; justify-content:center; text-align:center; font-family:var(--mono); font-size:.5rem; letter-spacing:.1em; box-shadow:inset 0 0 0 5px var(--paper), inset 0 0 0 6.5px var(--ink-soft); transform:rotate(-12deg); animation:floaty 6.5s ease-in-out infinite reverse}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}.postmark{display:none}}
+
+/* ticker */
+.ticker{border-block:2px solid var(--ink); background:#fff; margin-top:44px; overflow:hidden}
+.ticker-track{display:flex; gap:0; width:max-content; animation:tick 36s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{font-family:var(--mono); font-size:.72rem; letter-spacing:.2em; padding:10px 26px; white-space:nowrap; color:var(--ink-soft)}
+.ticker-track span b{color:var(--red)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ============ STEPS STRIP ============ */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:52px 0 0}
+.step{display:flex; gap:14px; align-items:flex-start; padding:16px 18px; transition:.25s}
+.step:hover{transform:translateY(-4px); box-shadow:8px 10px 0 rgba(29,37,64,.16)}
+.step b{font-family:var(--display); font-size:1.9rem; font-weight:900; color:var(--red); line-height:1}
+.step h4{font-size:.95rem; margin-bottom:2px}
+.step p{font-size:.82rem; color:var(--ink-soft)}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* ============ SECTIONS ============ */
+section.block{padding:78px 0 30px}
+
+/* trade chain */
+.chain{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:26px 0 16px}
+.chain-chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:2px solid var(--ink); background:#fff; padding:9px 14px; border-radius:99px; cursor:pointer; transition:.2s; box-shadow:3px 3px 0 rgba(29,37,64,.12)}
+.chain-chip:hover{transform:translate(-1px,-2px); box-shadow:5px 5px 0 rgba(29,37,64,.18)}
+.chain-chip.on{background:var(--ink); color:var(--paper)}
+.chain-arrow{font-family:var(--mono); color:var(--ink-soft)}
+.chain-info{margin-top:8px; padding:20px 24px; min-height:96px}
+.chain-info h4{font-family:var(--display); font-size:1.3rem; margin-bottom:4px}
+.chain-info .n{font-family:var(--mono); font-size:.62rem; color:var(--red); letter-spacing:.2em}
+
+/* golden rule callout */
+.callout{border-left:6px solid var(--amber); background:#fff9e2; padding:16px 20px; border-radius:0 10px 10px 0; margin:26px 0; font-size:.95rem}
+.callout b{font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; color:var(--amber); display:block; margin-bottom:4px}
+
+/* vocab flip cards */
+.vgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-top:26px}
+.vcard{perspective:900px; height:150px; cursor:pointer}
+.vcard-in{position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .55s cubic-bezier(.4,.9,.4,1)}
+.vcard.flip .vcard-in{transform:rotateY(180deg)}
+.vface{position:absolute; inset:0; backface-visibility:hidden; border:2px solid var(--ink); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; justify-content:center; gap:4px; box-shadow:4px 4px 0 rgba(29,37,64,.12)}
+.vfront{background:#fff}
+.vfront .en{font-family:var(--display); font-weight:700; font-size:1.15rem}
+.vfront .hint{font-family:var(--mono); font-size:.58rem; letter-spacing:.16em; color:var(--ink-soft); margin-top:6px}
+.vfront .star{position:absolute; top:10px; right:12px; font-size:.7rem; color:var(--amber)}
+.vback{background:var(--ink); color:var(--paper); transform:rotateY(180deg)}
+.vback .it{font-weight:700}
+.vback .ex{font-style:italic; font-size:.78rem; opacity:.85}
+
+/* ============ ANATOMY ============ */
+.anat{display:grid; grid-template-columns:1.12fr .88fr; gap:34px; margin-top:30px; align-items:start}
+.letterbox{position:sticky; top:86px; padding:30px 34px; font-size:.95rem; background:#fffef9}
+.letterbox::before{content:"MODEL · <span class='lvl-word'>LEVEL</span>"; position:absolute; top:-13px; left:24px; background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:.6rem; letter-spacing:.2em; padding:4px 12px; border-radius:4px}
+.part{padding:9px 12px; border-left:4px solid transparent; border-radius:4px; transition:.25s; margin:2px 0}
+.part:hover,.part.hot{background:#fff3bf; border-left-color:var(--amber); transform:translateX(3px)}
+.part .plabel{font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; color:var(--red); display:block; margin-bottom:2px}
+.letterhead{font-family:var(--mono); font-size:.78rem; line-height:1.7}
+.sig{font-family:var(--display); font-style:italic; font-size:1.15rem}
+.guide{display:flex; flex-direction:column; gap:14px}
+.gcard{padding:16px 18px; cursor:pointer; transition:.25s}
+.gcard:hover{transform:translateX(-5px); box-shadow:8px 8px 0 rgba(29,37,64,.15)}
+.gcard .gn{font-family:var(--mono); color:var(--red); font-size:.68rem; letter-spacing:.18em; font-weight:700}
+.gcard h4{font-family:var(--display); font-size:1.12rem; margin:2px 0 4px}
+.gcard p{font-size:.85rem; color:var(--ink-soft)}
+.rule-band{margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:0; overflow:hidden}
+.rule-band>div{padding:20px 26px}
+.rule-band .a{background:var(--ink); color:var(--paper)}
+.rule-band .b{background:#fff}
+.rule-band .mono{font-size:.8rem}
+.rule-band h5{font-family:var(--display); font-size:1.25rem; margin:2px 0}
+@media(max-width:920px){.anat{grid-template-columns:1fr}.letterbox{position:static}.rule-band{grid-template-columns:1fr}}
+
+/* ============ LANGUAGE BANK ============ */
+.tabs{display:flex; gap:8px; flex-wrap:wrap; margin:26px 0 18px}
+.tabbtn{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; border:2px solid var(--ink); background:#fff; padding:9px 16px; cursor:pointer; border-radius:8px 8px 0 0; transition:.2s; position:relative; top:2px}
+.tabbtn:hover{background:var(--marker)}
+.tabbtn.on{background:var(--ink); color:var(--paper); box-shadow:4px 4px 0 rgba(29,37,64,.18)}
+.tabpanel{display:none; padding:24px 28px}
+.tabpanel.on{display:block; animation:rise .4s ease}
+@keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+.phrase{display:flex; gap:12px; align-items:baseline; padding:9px 6px; border-bottom:1px dashed var(--line); transition:.2s}
+.phrase:hover{background:#fff6d8; padding-left:12px}
+.phrase:last-child{border:none}
+.phrase .it-trans{color:var(--ink-soft); font-size:.82rem; font-style:italic; margin-left:auto; text-align:right}
+.copybtn{font-family:var(--mono); font-size:.6rem; border:1.5px solid var(--ink-soft); background:none; border-radius:5px; padding:2px 8px; cursor:pointer; color:var(--ink-soft); transition:.2s; flex-shrink:0}
+.copybtn:hover{border-color:var(--green); color:var(--green)}
+
+/* ============ POLITENESS LAB ============ */
+.pgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; margin-top:26px}
+.pcard{height:170px; perspective:900px; cursor:pointer}
+.pcard-in{position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .55s cubic-bezier(.4,.9,.4,1)}
+.pcard.flip .pcard-in{transform:rotateY(180deg)}
+.pface{position:absolute; inset:0; backface-visibility:hidden; border:2px solid var(--ink); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:center; box-shadow:4px 4px 0 rgba(29,37,64,.12)}
+.pfront{background:#fff}
+.pfront .lbl{font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; color:var(--red); margin-bottom:8px}
+.pfront .txt{font-weight:700; font-size:1rem}
+.pback{background:var(--ink); color:var(--paper); transform:rotateY(180deg)}
+.pback .lbl{font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; color:var(--marker); margin-bottom:8px}
+.pback .note{font-size:.74rem; opacity:.8; margin-top:8px; font-style:italic}
+.grammar{margin-top:26px; padding:20px 26px; border-left:6px solid var(--blue)}
+.grammar code{font-family:var(--mono); background:#eef2ff; padding:2px 7px; border-radius:5px; font-size:.85em; color:var(--blue)}
+
+/* ============ PRACTICE ============ */
+.scoreline{display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:.78rem; padding:8px 18px; border-radius:99px; margin-top:14px}
+.scoreline b{color:var(--marker)}
+.ex{margin-top:34px; padding:28px 30px}
+.ex-head{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:8px}
+.ex-head .num{font-family:var(--display); font-weight:900; font-size:2rem; color:var(--red); line-height:1}
+.ex-head h3{font-family:var(--display); font-size:1.5rem}
+.ex-head .ex-score{margin-left:auto; font-family:var(--mono); font-size:.72rem; border:2px solid var(--line); border-radius:99px; padding:4px 14px}
+.ex-head .ex-score.win{border-color:var(--green); color:var(--green)}
+.ex-task{color:var(--ink-soft); font-size:.92rem; margin-bottom:18px}
+.zones{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.zone{border:2px dashed var(--line); border-radius:10px; padding:14px; min-height:120px; background:rgba(255,255,255,.5)}
+.zone h5{font-family:var(--mono); font-size:.6rem; letter-spacing:.2em; color:var(--ink-soft); margin-bottom:10px}
+.chip{display:inline-flex; align-items:center; gap:8px; font-size:.85rem; border:2px solid var(--ink); background:#fff; border-radius:8px; padding:7px 12px; margin:0 8px 8px 0; cursor:pointer; transition:.18s; box-shadow:2px 2px 0 rgba(29,37,64,.14); user-select:none}
+.chip:hover{transform:translate(-1px,-2px); box-shadow:4px 4px 0 rgba(29,37,64,.2)}
+.chip .n{font-family:var(--mono); font-size:.62rem; background:var(--marker); border-radius:4px; padding:1px 6px; font-weight:700}
+.chip.ok{border-color:var(--green); background:#e6f5ec}
+.chip.bad{border-color:var(--red); background:#fdecea}
+.chip.wbank{font-family:var(--mono); font-size:.8rem}
+.chip.used{opacity:.35; pointer-events:none}
+@media(max-width:720px){.zones{grid-template-columns:1fr}}
+.cloze-text{font-size:1rem; line-height:2.15; background:#fff; border:1.5px solid var(--line); border-radius:10px; padding:20px 24px}
+.blank{display:inline-block; min-width:96px; border-bottom:2.5px solid var(--blue); font-family:var(--mono); font-weight:700; color:var(--blue); text-align:center; cursor:pointer; padding:0 6px; transition:.2s}
+.blank:hover{background:#eef2ff}
+.blank.ok{color:var(--green); border-color:var(--green)}
+.blank.bad{color:var(--red); border-color:var(--red); text-decoration:line-through}
+.wordbank{margin-top:16px; padding:14px 16px; background:#fffbe8; border:1.5px dashed var(--amber); border-radius:10px}
+.qblock{border-bottom:1px dashed var(--line); padding:16px 4px}
+.qblock:last-child{border:none}
+.qblock .q{font-weight:700; margin-bottom:10px}
+.qblock .q .qn{font-family:var(--mono); color:var(--red); font-size:.72rem; margin-right:8px}
+.opt{display:block; width:100%; text-align:left; font-family:var(--body); font-size:.9rem; border:2px solid var(--line); background:#fff; border-radius:8px; padding:9px 14px; margin-bottom:7px; cursor:pointer; transition:.18s}
+.opt:hover{border-color:var(--ink); transform:translateX(4px)}
+.opt.picked{border-color:var(--blue); background:#eef2ff; font-weight:700}
+.opt.ok{border-color:var(--green); background:#e6f5ec}
+.opt.bad{border-color:var(--red); background:#fdecea}
+.why{font-size:.8rem; color:var(--ink-soft); font-style:italic; margin-top:4px; display:none}
+.btnrow{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
+.btn{font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; border:2px solid var(--ink); padding:11px 22px; cursor:pointer; border-radius:8px; transition:.15s; font-weight:700}
+.btn.pri{background:var(--ink); color:var(--paper); box-shadow:4px 4px 0 rgba(29,37,64,.25)}
+.btn.pri:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 rgba(29,37,64,.3)}
+.btn.pri:active{transform:translate(2px,2px); box-shadow:none}
+.btn.ghost{background:#fff}
+.btn.ghost:hover{background:var(--marker)}
+.ex-msg{font-family:var(--mono); font-size:.78rem; margin-top:14px; min-height:1.2em}
+.ex-msg.good{color:var(--green)} .ex-msg.meh{color:var(--amber)} .ex-msg.no{color:var(--red)}
+.writing{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px}
+@media(max-width:860px){.writing{grid-template-columns:1fr}}
+textarea{width:100%; min-height:280px; border:2px solid var(--ink); border-radius:10px; background:repeating-linear-gradient(#fff 0 31px, transparent 31px 33px), #fff; padding:8px 18px; font-family:var(--body); font-size:.95rem; line-height:33px; resize:vertical; transition:.2s}
+textarea:focus{outline:none; box-shadow:5px 5px 0 rgba(43,95,217,.25); border-color:var(--blue)}
+.wc{font-family:var(--mono); font-size:.68rem; color:var(--ink-soft); margin-top:8px}
+.wc b{color:var(--blue)}
+.wcheck{list-style:none; margin-top:14px; display:flex; flex-direction:column; gap:8px}
+.wcheck label{display:flex; gap:10px; align-items:flex-start; font-size:.88rem; cursor:pointer; padding:6px 10px; border-radius:8px; transition:.2s}
+.wcheck label:hover{background:#fff6d8}
+.wcheck input{accent-color:var(--green); margin-top:4px}
+details.model{margin-top:16px; border:1.5px dashed var(--line); border-radius:10px; padding:12px 16px; background:#fff}
+details.model summary{cursor:pointer; font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; color:var(--blue); font-weight:700}
+details.model .mtxt{margin-top:10px; font-size:.88rem; white-space:pre-line; color:var(--ink-soft)}
+
+/* ============ BEFORE YOU SEND ============ */
+.dodont{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:26px}
+@media(max-width:720px){.dodont{grid-template-columns:1fr}}
+.dodont .panel{padding:22px 26px}
+.dodont h4{font-family:var(--display); font-size:1.3rem; margin-bottom:12px}
+.dodont .do h4{color:var(--green)} .dodont .dont h4{color:var(--red)}
+.dodont li{list-style:none; padding:7px 0 7px 30px; position:relative; font-size:.92rem; border-bottom:1px dashed var(--line); transition:.2s}
+.dodont li:hover{padding-left:36px}
+.dodont li::before{position:absolute; left:2px; font-family:var(--mono); font-weight:700}
+.do li::before{content:"✔"; color:var(--green)}
+.dont li::before{content:"✘"; color:var(--red)}
+.precheck{margin-top:26px; padding:24px 28px}
+.precheck h4{font-family:var(--display); font-size:1.35rem; margin-bottom:6px}
+.precheck .cols{display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; margin-top:14px}
+@media(max-width:720px){.precheck .cols{grid-template-columns:1fr}}
+.precheck label{display:flex; gap:10px; align-items:flex-start; padding:7px 8px; border-radius:8px; cursor:pointer; font-size:.9rem; transition:.2s}
+.precheck label:hover{background:#fff6d8}
+.precheck input{accent-color:var(--blue); margin-top:4px}
+.precheck label.done{text-decoration:line-through; opacity:.55}
+#checkCount{font-family:var(--mono); font-size:.72rem; color:var(--blue); font-weight:700}
+
+/* ============ FOOTER ============ */
+footer{margin-top:80px; border-top:2px solid var(--ink); background:var(--ink); color:rgba(247,244,236,.85); padding:46px 0 60px; position:relative; z-index:1}
+footer .wrap{display:grid; grid-template-columns:1fr auto; gap:30px; align-items:start}
+footer .fbrand{font-family:var(--display); font-weight:900; font-size:1.5rem; color:var(--paper)}
+footer p{font-size:.82rem; max-width:56ch; margin-top:8px}
+footer details{max-width:520px; border:1.5px dashed rgba(247,244,236,.4); border-radius:10px; padding:14px 18px}
+footer summary{cursor:pointer; font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; color:var(--marker)}
+footer details .it-notes{margin-top:12px; font-size:.8rem; line-height:1.7}
+footer details .it-notes b{color:var(--marker)}
+@media(max-width:720px){footer .wrap{grid-template-columns:1fr}}
+
+@media print{
+  .rail,.toast,.topbar,.ticker,.scrollcue,.btn,.printbtn{display:none!important}
+  body{background:#fff; padding:0}
+  .panel,.letterbox{box-shadow:none}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body data-level="2">
+
+<!-- ================= LEVEL RAIL (always visible) ================= -->
+<div class="rail" role="group" aria-label="Difficulty level selector">
+  <div class="rail-cap">LEVEL</div>
+  <div class="rail-track" id="railTrack">
+    <span class="rail-knob" id="railKnob"></span>
+    <button class="rail-stop" data-l="1" aria-pressed="false"><i></i><span>EASY</span></button>
+    <button class="rail-stop" data-l="2" aria-pressed="false"><i></i><span>MEDIUM</span></button>
+    <button class="rail-stop" data-l="3" aria-pressed="false"><i></i><span>HARD</span></button>
+  </div>
+  <div class="rail-tag" id="railTag">B1+ · semi-guided</div>
+  <div class="rail-hint">keys 1·2·3</div>
+</div>
+<div class="toast" id="toast" aria-live="polite">MEDIUM</div>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <a class="homelink" href="../index.html">← All lessons</a>
+  <div class="brand"><span class="env"></span> THE ENQUIRY DESK</div>
+  <nav class="topnav">
+    <a href="#what">Theory</a><a href="#anatomy">Anatomy</a><a href="#language">Language</a>
+    <a href="#polite">Register</a><a href="#practice">Practice</a><a href="#send">Checklist</a>
+  </nav>
+  <span class="level-chip" id="navLevel">MEDIUM · B1+</span>
+  <button class="printbtn" onclick="window.print()">⎙ PRINT</button>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero wrap" id="start">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow reveal">Business English · International correspondence · AFM</p>
+      <h1 class="reveal">Writing an<br><span class="swash">Enquiry</span></h1>
+      <p class="sub reveal">Every international deal starts with a question. Learn how a company asks a supplier for catalogues, prices, terms and samples — and how to write that message so it gets an answer.</p>
+      <div class="cefr reveal">
+        <span class="tag">📘 Easy — <b>guided, short texts</b></span>
+        <span class="tag">📗 Medium — <b>semi-guided, standard business</b></span>
+        <span class="tag">📕 Hard — <b>formal trade language</b></span>
+      </div>
+      <p class="scrollcue reveal">▼ USE THE LEVEL RAIL · SCROLL TO START</p>
+    </div>
+    <div class="mailbox reveal">
+      <div class="stamp">FIRST<br>CONTACT<br>✦ ✦ ✦</div>
+      <div class="mail">
+        <div class="mail-bar"><i></i><i></i><i></i><span>NEW MESSAGE</span></div>
+        <div class="mail-body">
+          <p class="mail-field">From: <b>purchasing@elettrapiemonte.it</b></p>
+          <p class="mail-field">To: <b>sales@brightlamps.co.uk</b></p>
+          <p class="mail-subject"><span id="typeTarget"></span><span class="caret"></span></p>
+          <div class="mail-line">Dear Sir or Madam,</div>
+          <div class="mail-line">We are writing to enquire about your new range…</div>
+          <div class="mail-line">Could you please send us your catalogue and a quotation?</div>
+          <div class="mail-line">We look forward to hearing from you.</div>
+        </div>
+      </div>
+      <div class="postmark">MILANO C.P.O.<br>✦<br>EXPRESS</div>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step panel reveal"><b>01</b><div><h4>Read &amp; observe</h4><p>Theory, the trade chain and real annotated models.</p></div></div>
+    <div class="step panel reveal"><b>02</b><div><h4>Collect language</h4><p>Steal ready-made phrases from the Language Bank.</p></div></div>
+    <div class="step panel reveal"><b>03</b><div><h4>Practise &amp; write</h4><p>Four interactive exercises, then write your own enquiry.</p></div></div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<!-- ================= 1 · WHAT IS AN ENQUIRY ================= -->
+<section class="block wrap" id="what">
+  <p class="eyebrow reveal">Section 01 · Theory</p>
+  <h2 class="sec-title reveal">What is an <em>enquiry</em>?</h2>
+  <div class="airmail reveal"></div>
+  <p class="lede reveal">An <strong>enquiry</strong> (US: <em>inquiry</em>) is a business message — letter or email — in which a potential buyer asks a supplier for information before buying: details about products, a catalogue, a price list, a quotation, discounts, delivery and payment conditions.</p>
+
+  <div class="lvb lv1 reveal" style="margin-top:16px">
+    <p class="lede"><strong>In short:</strong> you want to buy something, but first you need information. So you write to the supplier and ask. The supplier answers with an <strong>offer</strong> or a <strong>quotation</strong> (a document with prices). Nothing is bought yet — you are only asking.</p>
+  </div>
+  <div class="lvb lv2 reveal" style="margin-top:16px">
+    <p class="lede">Enquiries are usually the <strong>first contact</strong> between two companies. They create <strong>no legal obligation</strong>: the buyer is not committed to buy, and the supplier is not committed to sell. A binding contract is created only later, with the <strong>order</strong> and its acceptance. A good enquiry is <strong>specific</strong>: it says exactly what information is needed, so the supplier can answer quickly and completely.</p>
+  </div>
+  <div class="lvb lv3 reveal" style="margin-top:16px">
+    <p class="lede">In legal terms an enquiry is a mere <em>invitation to treat</em>: it invites the other party to make an offer. The supplier's reply — the <strong>quotation</strong> — is normally an <strong>offer</strong>; when the buyer places an <strong>order</strong> referring to that offer, a contract is formed. Well-written enquiries often signal serious purchasing intentions (<em>"if your prices are competitive, we are prepared to place regular orders"</em>) to encourage keen conditions. In export trade, enquiries typically specify <strong>Incoterms</strong>, ports, and payment instruments such as the <strong>letter of credit</strong>.</p>
+  </div>
+
+  <h3 class="reveal" style="font-family:var(--display); font-size:1.5rem; margin-top:44px">The business chain — click a step</h3>
+  <div class="chain reveal" id="chain"></div>
+  <div class="panel chain-info reveal" id="chainInfo"></div>
+
+  <div class="callout reveal">
+    <b>⚖ GOLDEN RULE</b>
+    <span class="lv lv1">An enquiry only <strong>asks</strong>. It does not oblige anyone to buy or sell.</span>
+    <span class="lv lv2">An enquiry asks for information; an <strong>order</strong> commits you to buy. Never mix the two: the enquiry creates no obligation, the order does.</span>
+    <span class="lv lv3">Enquiry = invitation to treat · Quotation = offer · Order = acceptance → contract. Keep the legal sequence clear: only the order/acceptance stage creates binding obligations.</span>
+  </div>
+
+  <h3 class="reveal" style="font-family:var(--display); font-size:1.5rem; margin-top:40px">Key vocabulary — tap a card to flip it</h3>
+  <div class="vgrid reveal" id="vgrid"></div>
+</section>
+
+<!-- ================= 2 · ANATOMY ================= -->
+<section class="block wrap" id="anatomy">
+  <p class="eyebrow reveal">Section 02 · The model</p>
+  <h2 class="sec-title reveal">Anatomy of an enquiry, <em>part by part</em></h2>
+  <div class="airmail reveal"></div>
+  <p class="lede reveal">Hover or tap a card on the right: the matching part of the letter lights up. The model letter changes with your level — raise or lower the rail anytime.</p>
+
+  <div class="anat">
+    <div class="letterbox panel reveal">
+      <!-- EASY -->
+      <div class="lvb lv1">
+        <div class="part letterhead" data-part="head"><span class="plabel">① HEADER / SUBJECT</span>From: anna@milanshop.it<br>To: sales@greenchairs.com<br>Subject: Enquiry about office chairs</div>
+        <div class="part" data-part="salute"><span class="plabel">② SALUTATION</span>Dear Sir or Madam,</div>
+        <div class="part" data-part="open"><span class="plabel">③ OPENING</span>We are a small shop in Milan and we saw your products on the Internet.</div>
+        <div class="part" data-part="profile"><span class="plabel">④ WHO WE ARE</span>We sell furniture for offices and homes.</div>
+        <div class="part" data-part="request"><span class="plabel">⑤ THE REQUEST</span>Could you please send us your catalogue and your price list? We would also like to know your delivery times.</div>
+        <div class="part" data-part="expect"><span class="plabel">⑦ EXPECTATION</span>Thank you. We look forward to hearing from you.</div>
+        <div class="part" data-part="signoff"><span class="plabel">⑧ SIGN-OFF</span>Yours faithfully,<br><span class="sig">Anna Bianchi</span><br>Purchasing Assistant</div>
+      </div>
+      <!-- MEDIUM -->
+      <div class="lvb lv2">
+        <div class="part letterhead" data-part="head"><span class="plabel">① HEADER / SUBJECT</span>From: m.rossi@elettropiemonte.it<br>To: export@brightlamps.co.uk<br>Subject: Request for catalogue and quotation — LED lamps, ref. DL-20</div>
+        <div class="part" data-part="salute"><span class="plabel">② SALUTATION</span>Dear Sir or Madam,</div>
+        <div class="part" data-part="open"><span class="plabel">③ OPENING</span>We visited your stand at the Light+Trade fair in Frankfurt and were very impressed by your range of LED desk lamps.</div>
+        <div class="part" data-part="profile"><span class="plabel">④ WHO WE ARE</span>We are a wholesaler of electrical goods based in Turin, supplying about 120 retailers in North-West Italy.</div>
+        <div class="part" data-part="request"><span class="plabel">⑤ THE REQUEST</span>Could you please send us your latest catalogue and a quotation for 200 units of the model DL-20? We would also like to know:<br>• your terms of payment;<br>• delivery times;<br>• whether you allow a trade discount.</div>
+        <div class="part" data-part="expect"><span class="plabel">⑦ EXPECTATION</span>We look forward to receiving your offer.</div>
+        <div class="part" data-part="signoff"><span class="plabel">⑧ SIGN-OFF</span>Yours faithfully,<br><span class="sig">Marco Rossi</span><br>Purchasing Manager, ElettroPiemonte Srl</div>
+      </div>
+      <!-- HARD -->
+      <div class="lvb lv3">
+        <div class="part letterhead" data-part="head"><span class="plabel">① LETTERHEAD · DATE · INSIDE ADDRESS · SUBJECT</span>CaffèNord SpA · Via Lancia 88, 20153 Milano<br>Milano, 12 May 2025<br>Ms J. Harper · Export Manager · Harper Machines Ltd<br>Subject: Enquiry re: industrial espresso machines — possible long-term cooperation</div>
+        <div class="part" data-part="salute"><span class="plabel">② SALUTATION</span>Dear Ms Harper,</div>
+        <div class="part" data-part="open"><span class="plabel">③ OPENING</span>Your company was recommended to us by the Italian Trade Agency, and we understand that you are one of the leading manufacturers of professional espresso machines.</div>
+        <div class="part" data-part="profile"><span class="plabel">④ WHO WE ARE</span>Our company distributes catering equipment to hotels and restaurants throughout Northern Italy, and we are looking for a reliable supplier for the coming season.</div>
+        <div class="part" data-part="request"><span class="plabel">⑤ THE REQUEST</span>We should be grateful if you could send us your illustrated catalogue and your export price list, quoted CIF Genoa. Kindly also specify:<br>• minimum order quantities;<br>• trade and quantity discounts;<br>• delivery times and port of shipment;<br>• payment terms — we usually operate by irrevocable letter of credit at sight.</div>
+        <div class="part" data-part="incentive"><span class="plabel">⑥ THE INCENTIVE</span>If your prices are competitive, we are prepared to place substantial orders on a regular basis and to discuss sole agency rights for Italy.</div>
+        <div class="part" data-part="expect"><span class="plabel">⑦ EXPECTATION</span>We look forward to your early reply.</div>
+        <div class="part" data-part="signoff"><span class="plabel">⑧ SIGN-OFF</span>Yours sincerely,<br><span class="sig">Giulia Ferri</span><br>Import Manager, CaffèNord SpA</div>
+      </div>
+    </div>
+
+    <div class="guide reveal" id="guide">
+      <div class="gcard panel" data-part="head"><span class="gn">PART ①</span><h4>Header &amp; subject line</h4><p><span class="lv lv1">The subject says what the email is about. Keep it short and clear.</span><span class="lv lv2">Include the topic and, if possible, a product reference: it helps the supplier route your mail and answer faster.</span><span class="lv lv3">Formal letters carry sender's address, date and inside address. In emails, a precise subject line measurably raises the response rate.</span></p></div>
+      <div class="gcard panel" data-part="salute"><span class="gn">PART ②</span><h4>Salutation</h4><p><span class="lv lv1">Use <b>Dear Sir or Madam</b> if you don't know the name.</span><span class="lv lv2"><b>Dear Sir or Madam,</b> (unknown name) or <b>Dear Mr Smith / Dear Ms Harper,</b> (known name). Never "Hi!" in a first business contact.</span><span class="lv lv3">When the contact person is known, use the surname. Note the comma after the salutation in British style.</span></p></div>
+      <div class="gcard panel" data-part="open"><span class="gn">PART ③</span><h4>Opening — why you write</h4><p><span class="lv lv1">Say immediately why you are writing.</span><span class="lv lv2">Say where you found the supplier (a fair, an advert, a recommendation): it gives context and flatters them a little.</span><span class="lv lv3">A formal opening often uses passive or reporting structures: <em>Your company was recommended to us… / We understand that…</em></span></p></div>
+      <div class="gcard panel" data-part="profile"><span class="gn">PART ④</span><h4>Who you are</h4><p><span class="lv lv1">One short sentence about your company.</span><span class="lv lv2">One line of company profile: the supplier understands your size and may offer better conditions to a serious buyer.</span><span class="lv lv3">Hint at volumes or distribution reach: it positions you as a valuable customer before you even ask.</span></p></div>
+      <div class="gcard panel" data-part="request"><span class="gn">PART ⑤</span><h4>The request(s) — the core</h4><p><span class="lv lv1">Ask for what you need: catalogue, prices, delivery times.</span><span class="lv lv2">Be specific: quantities, model references, bullet lists of questions. Vague enquiries get vague answers.</span><span class="lv lv3">In export enquiries: Incoterm + port, MOQs, discount scales, and the payment instrument you intend to use.</span></p></div>
+      <div class="gcard panel" data-part="incentive"><span class="gn">PART ⑥</span><h4>The incentive <span class="tag">advanced</span></h4><p><span class="lv lv1">Not needed at this level — but nice to know it exists.</span><span class="lv lv2">A conditional promise of future business: <em>If your prices are competitive…</em> It motivates a keen offer.</span><span class="lv lv3">Classic formula: <em>"If your prices are competitive, we are prepared to place substantial/regular orders"</em> — plus agency or exclusivity hints where relevant.</span></p></div>
+      <div class="gcard panel" data-part="expect"><span class="gn">PART ⑦</span><h4>Expecting a reply</h4><p><span class="lv lv1">A fixed, friendly sentence before goodbye.</span><span class="lv lv2"><em>We look forward to + -ing</em> is the standard business closing. Note: <em>hearing</em>, not <em>hear</em>.</span><span class="lv lv3">Variants: <em>We look forward to your early reply</em> · <em>Your prompt answer would be appreciated</em>.</span></p></div>
+      <div class="gcard panel" data-part="signoff"><span class="gn">PART ⑧</span><h4>Sign-off</h4><p><span class="lv lv1">No name at the start → <b>Yours faithfully</b>.</span><span class="lv lv2">Match it with the salutation (see the rule below) and add your position and company.</span><span class="lv lv3">In formal correspondence this pairing is still noticed — getting it wrong signals carelessness.</span></p></div>
+    </div>
+  </div>
+
+  <div class="rule-band panel reveal">
+    <div class="a"><span class="mono" style="color:var(--marker)">RULE · NO NAME</span><h5>Dear Sir or Madam → Yours faithfully</h5><p class="mono">You don't know who will read it.</p></div>
+    <div class="b"><span class="mono" style="color:var(--red)">RULE · WITH NAME</span><h5>Dear Ms Harper → Yours sincerely</h5><p class="mono">Trick: <b>S</b>incerely ↔ <b>S</b>omebody you know.</p></div>
+  </div>
+</section>
+
+<!-- ================= 3 · LANGUAGE BANK ================= -->
+<section class="block wrap" id="language">
+  <p class="eyebrow reveal">Section 03 · Phrases</p>
+  <h2 class="sec-title reveal">The <em>Language Bank</em></h2>
+  <div class="airmail reveal"></div>
+  <p class="lede reveal">Ready-made phrases, organised by job. Copy them into your own enquiry — at your current level. Phrases get more formal as you raise the rail.</p>
+  <div class="tabs reveal" id="tabs">
+    <button class="tabbtn on" data-tab="t-open">Opening</button>
+    <button class="tabbtn" data-tab="t-req">Making requests</button>
+    <button class="tabbtn" data-tab="t-price">Prices &amp; terms</button>
+    <button class="tabbtn" data-tab="t-close">Closing</button>
+  </div>
+  <div class="panel reveal">
+    <div class="tabpanel on" id="t-open">
+      <div class="lvb lv1">
+        <div class="phrase">We are writing to ask about your products.<button class="copybtn">copy</button></div>
+        <div class="phrase">We saw your advert on the Internet.<button class="copybtn">copy</button></div>
+        <div class="phrase">We are interested in your products.<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv2">
+        <div class="phrase">We are writing to enquire about your new range of…<button class="copybtn">copy</button></div>
+        <div class="phrase">We visited your stand at the fair and were impressed by…<button class="copybtn">copy</button></div>
+        <div class="phrase">Your company was recommended to us by…<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv3">
+        <div class="phrase">Having seen your advertisement in…, we would like to enquire about…<button class="copybtn">copy</button></div>
+        <div class="phrase">We understand from the Italian Trade Agency that you are leading manufacturers of…<button class="copybtn">copy</button></div>
+        <div class="phrase">We should be grateful if you would send us full details of…<button class="copybtn">copy</button></div>
+      </div>
+    </div>
+    <div class="tabpanel" id="t-req">
+      <div class="lvb lv1">
+        <div class="phrase">Can you send us your catalogue, please?<button class="copybtn">copy</button></div>
+        <div class="phrase">How much does it cost?<button class="copybtn">copy</button></div>
+        <div class="phrase">When can you deliver?<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv2">
+        <div class="phrase">Could you please send us your latest catalogue and price list?<button class="copybtn">copy</button></div>
+        <div class="phrase">We would like a quotation for 200 units of the model DL-20.<button class="copybtn">copy</button></div>
+        <div class="phrase">Please let us know your terms of payment and delivery.<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv3">
+        <div class="phrase">We should be obliged if you would send us your illustrated catalogue.<button class="copybtn">copy</button></div>
+        <div class="phrase">Please quote CIF Genoa, indicating minimum order quantities.<button class="copybtn">copy</button></div>
+        <div class="phrase">Kindly state whether you allow a trade or quantity discount.<button class="copybtn">copy</button></div>
+      </div>
+    </div>
+    <div class="tabpanel" id="t-price">
+      <div class="lvb lv1">
+        <div class="phrase">What is the price?<button class="copybtn">copy</button></div>
+        <div class="phrase">Do you have any discounts?<button class="copybtn">copy</button></div>
+        <div class="phrase">How can we pay?<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv2">
+        <div class="phrase">Could you tell us your best price for large orders?<button class="copybtn">copy</button></div>
+        <div class="phrase">What discount do you offer for quantities of 500 or more?<button class="copybtn">copy</button></div>
+        <div class="phrase">Do you accept payment by bank transfer?<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv3">
+        <div class="phrase">Please quote your most competitive prices, net of trade discount.<button class="copybtn">copy</button></div>
+        <div class="phrase">Our usual terms are payment by irrevocable letter of credit at sight.<button class="copybtn">copy</button></div>
+        <div class="phrase">Kindly specify the Incoterm and the port of shipment.<button class="copybtn">copy</button></div>
+      </div>
+    </div>
+    <div class="tabpanel" id="t-close">
+      <div class="lvb lv1">
+        <div class="phrase">Thank you. I hope to hear from you soon.<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv2">
+        <div class="phrase">We look forward to receiving your offer.<button class="copybtn">copy</button></div>
+        <div class="phrase">An early reply would be appreciated.<button class="copybtn">copy</button></div>
+      </div>
+      <div class="lvb lv3">
+        <div class="phrase">We look forward to your early reply and hope this will be the beginning of a fruitful business relationship.<button class="copybtn">copy</button></div>
+        <div class="phrase">Your prompt answer would help us finalise our purchasing plan for the season.<button class="copybtn">copy</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4 · POLITENESS LAB ================= -->
+<section class="block wrap" id="polite">
+  <p class="eyebrow reveal">Section 04 · Register</p>
+  <h2 class="sec-title reveal">Politeness <em>Lab</em></h2>
+  <div class="airmail reveal"></div>
+  <p class="lede reveal">Business English prefers <strong>indirect</strong> requests. Tap each card to turn a blunt sentence into a professional one.</p>
+  <div class="grammar panel reveal">
+    <span class="mono" style="font-size:.68rem; letter-spacing:.2em; color:var(--blue); font-weight:700">GRAMMAR PILL</span>
+    <p style="margin-top:6px">Indirect questions: <code>Could you tell me</code> + <strong>subject + verb</strong> (normal order, no <em>do/does/did</em>).<br>
+    <em>What are your terms?</em> → <em>Could you tell me what your terms <strong>are</strong>?</em> · Also: <code>Would it be possible to…?</code> <code>We should be grateful if you would…</code></p>
+  </div>
+  <div class="pgrid reveal" id="polCards"></div>
+</section>
+
+<!-- ================= 5 · PRACTICE ================= -->
+<section class="block wrap" id="practice">
+  <p class="eyebrow reveal">Section 05 · Exercises</p>
+  <h2 class="sec-title reveal">The <em>Practice Arena</em></h2>
+  <div class="airmail reveal"></div>
+  <p class="lede reveal">Four exercises, all corrected automatically. They adapt to your level — try switching the rail after finishing one!</p>
+  <div class="scoreline reveal">SESSION SCORE&nbsp; <b id="scoreTotal">0 / 0</b></div>
+
+  <div class="ex panel reveal">
+    <div class="ex-head"><span class="num">01</span><h3>Build the enquiry</h3><span class="ex-score" id="sc-order">not checked</span></div>
+    <p class="ex-task">Tap the sentences in the correct order — tap a sentence again to send it back to the bank. Then press CHECK.</p>
+    <div class="zones">
+      <div class="zone"><h5>YOUR ORDER</h5><div id="orderAns"></div></div>
+      <div class="zone"><h5>SENTENCE BANK</h5><div id="orderBank"></div></div>
+    </div>
+    <div class="btnrow"><button class="btn pri" id="orderCheck">Check order</button><button class="btn ghost" id="orderReset">Reset</button></div>
+    <p class="ex-msg" id="orderMsg"></p>
+  </div>
+
+  <div class="ex panel reveal">
+    <div class="ex-head"><span class="num">02</span><h3>Complete the enquiry</h3><span class="ex-score" id="sc-cloze">not checked</span></div>
+    <p class="ex-task">Tap a word from the bank to fill the next gap. Tap a filled gap to put the word back. Watch out: there are extra words!</p>
+    <div class="cloze-text" id="clozeText"></div>
+    <div class="wordbank"><h5 class="mono" style="font-size:.6rem; letter-spacing:.2em; color:var(--amber); margin-bottom:8px">WORD BANK</h5><div id="clozeBank"></div></div>
+    <div class="btnrow"><button class="btn pri" id="clozeCheck">Check gaps</button><button class="btn ghost" id="clozeReset">Reset</button></div>
+    <p class="ex-msg" id="clozeMsg"></p>
+  </div>
+
+  <div class="ex panel reveal">
+    <div class="ex-head"><span class="num">03</span><h3>Quick quiz</h3><span class="ex-score" id="sc-quiz">not checked</span></div>
+    <p class="ex-task">Choose one answer per question, then press CHECK.</p>
+    <div id="quizBox"></div>
+    <div class="btnrow"><button class="btn pri" id="quizCheck">Check quiz</button><button class="btn ghost" id="quizReset">Reset</button></div>
+    <p class="ex-msg" id="quizMsg"></p>
+  </div>
+
+  <div class="ex panel reveal">
+    <div class="ex-head"><span class="num">04</span><h3>Writing workshop</h3><span class="tag" style="background:var(--marker)">your turn ✍</span></div>
+    <div id="writingArea"></div>
+  </div>
+</section>
+
+<!-- ================= 6 · BEFORE YOU SEND ================= -->
+<section class="block wrap" id="send">
+  <p class="eyebrow reveal">Section 06 · Quality control</p>
+  <h2 class="sec-title reveal">Before you <em>press send</em></h2>
+  <div class="airmail reveal"></div>
+  <div class="dodont">
+    <div class="panel do reveal"><h4>DO</h4><ul>
+      <li>Be specific: quantities, models, references.</li>
+      <li>Use bullet lists for multiple requests.</li>
+      <li>Use polite modals: could, would, may.</li>
+      <li>Say where you found the supplier.</li>
+      <li>Include full contact details and your position.</li>
+      <li>Write a precise subject line.</li>
+    </ul></div>
+    <div class="panel dont reveal"><h4>DON'T</h4><ul>
+      <li>Use slang, emojis or "Hi!" in a first contact.</li>
+      <li>Write vague requests like "send me everything".</li>
+      <li>Sound demanding: "Answer immediately!".</li>
+      <li>Confuse an enquiry with an order.</li>
+      <li>Forget the salutation or the sign-off.</li>
+      <li>Mix up <em>faithfully</em> and <em>sincerely</em>.</li>
+    </ul></div>
+  </div>
+  <div class="panel precheck reveal">
+    <h4>Final checklist <span id="checkCount">0 / 8</span></h4>
+    <p style="color:var(--ink-soft); font-size:.88rem">Tick each point of your draft. Can you tick them all? Then it's ready.</p>
+    <div class="cols" id="precheckCols"></div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fbrand">✉ The Enquiry Desk</div>
+      <p>Interactive lesson · Business English · Classe 5ª — Amministrazione, Finanza e Marketing. Use the LEVEL rail to adapt every text and exercise to your class, at any moment.</p>
+    </div>
+    <details>
+      <summary>🇮🇹 NOTE PER IL DOCENTE (IT)</summary>
+      <div class="it-notes">
+        <p><b>Livelli:</b> Easy ≈ A2+/B1 guidato · Medium ≈ B1+/B2 semiguidato · Hard ≈ B2+/C1 formale (Incoterms, L/C, sole agency). Lo slider a destra/in basso cambia <i>tutta</i> la pagina in tempo reale; la scelta resta salvata nel browser. Scorciatoie: tasti <b>1, 2, 3</b>.</p>
+        <p style="margin-top:8px"><b>Uso suggerito (2 ore):</b> ① teoria + catena commerciale (20'); ② anatomia della lettera proiettata, parti cliccabili (20'); ③ Language Bank come dispensa (15'); ④ esercizi individuali con punteggio (30'); ⑤ Writing workshop come compito o verifica formativa (35'). Il pulsante ⎙ PRINT produce una versione stampabile.</p>
+      </div>
+    </details>
+  </div>
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const LEVELS = {
+  1:{name:"EASY", cefr:"A2+", desc:"guided", color:"#2b5fd9"},
+  2:{name:"MEDIUM", cefr:"B1+", desc:"semi-guided", color:"#b07c06"},
+  3:{name:"HARD", cefr:"B2+", desc:"formal trade", color:"#cf3f36"}
+};
+const SUBJECTS = {
+  1:"Subject: Enquiry about sports bags",
+  2:"Subject: Request for quotation — LED lamps, ref. DL-20",
+  3:"Subject: Enquiry re: espresso machines — CIF Genoa"
+};
+const TICKER = ["ENQUIRY","QUOTATION","CATALOGUE","PRICE LIST","SAMPLE","TRADE DISCOUNT","TERMS OF PAYMENT","TERMS OF DELIVERY","CIF · FOB","LETTER OF CREDIT","SOLE AGENCY","DISPATCH","INVOICE","SUPPLIER"];
+const VOCAB = [
+  {en:"enquiry", it:"richiesta di informazioni", ex:"We sent an enquiry to three suppliers.", min:1},
+  {en:"quotation", it:"preventivo / quotazione", ex:"The quotation is valid for 30 days.", min:1},
+  {en:"supplier", it:"fornitore", ex:"We are looking for a reliable supplier.", min:1},
+  {en:"catalogue", it:"catalogo", ex:"The new catalogue shows 200 items.", min:1},
+  {en:"price list", it:"listino prezzi", ex:"Could you send us your current price list?", min:1},
+  {en:"sample", it:"campione", ex:"May we receive a free sample?", min:1},
+  {en:"discount", it:"sconto", ex:"They allow a 10% trade discount.", min:1},
+  {en:"invoice", it:"fattura", ex:"The invoice was issued on 5 May.", min:1},
+  {en:"payment terms", it:"condizioni di pagamento", ex:"Our usual payment terms are 30 days.", min:2},
+  {en:"delivery terms", it:"condizioni di consegna", ex:"What are your delivery terms?", min:2},
+  {en:"dispatch", it:"spedizione", ex:"Dispatch takes place within 10 days.", min:2},
+  {en:"letter of credit", it:"lettera di credito", ex:"We pay by irrevocable letter of credit.", min:3},
+  {en:"Incoterms", it:"clausole internaz. di consegna", ex:"CIF and FOB are common Incoterms.", min:3},
+  {en:"sole agency", it:"concessione in esclusiva", ex:"We asked for sole agency rights.", min:3}
+];
+const CHAIN = [
+  {t:"Enquiry", d:["The buyer asks for information: catalogues, prices, terms. No obligation yet.","The buyer requests product and commercial information. The supplier has no duty to sell — and the buyer has no duty to buy.","An invitation to treat. Sets the agenda for negotiation: products, Incoterms, payment instruments, discount scales."]},
+  {t:"Quotation / Offer", d:["The supplier answers with prices and conditions.","The supplier replies with prices, validity period and conditions. If precise and complete, it is a legal offer.","The seller's offer: price per unit, Incoterm, validity, MOQ. Acceptance of it forms the contract."]},
+  {t:"Order", d:["The buyer says: 'We want to buy these things.'","The buyer accepts the offer and commits to purchase. Now there is a real obligation.","The acceptance: references the quotation, fixes quantities and delivery. Contract is formed on acceptance."]},
+  {t:"Confirmation", d:["The supplier says: 'OK, your order is accepted.'","The supplier confirms acceptance, delivery dates and details.","Order acknowledgement; may correct errors before performance begins."]},
+  {t:"Delivery / Dispatch", d:["The goods travel to the buyer.","The goods are dispatched; transport documents travel with them.","Per the agreed Incoterm, risk passes at the named point (e.g. CIF: goods loaded on board)."]},
+  {t:"Invoice", d:["The bill: how much to pay.","The seller's request for payment, with amounts, VAT and references.","Commercial invoice plus any documents required by the letter of credit."]},
+  {t:"Payment", d:["The buyer pays.","The buyer pays by the agreed method (transfer, card, direct debit).","Settlement per agreed terms — e.g. irrevocable L/C at sight, or 30/60 days."]}
+];
+const POL = {
+  1:[
+    {f:"Send me the price list.", b:"Could you please send me the price list?", n:"could + please = instant upgrade"},
+    {f:"I want a discount.", b:"I would like to know if you offer any discount.", n:"would like > want"},
+    {f:"Answer soon.", b:"I look forward to hearing from you soon.", n:"the classic closer"}
+  ],
+  2:[
+    {f:"What are your payment terms?", b:"Could you tell me what your payment terms are?", n:"indirect question: subject before verb"},
+    {f:"How much do the lamps cost?", b:"Could you let us know how much the lamps cost?", n:"no 'do' in the indirect form"},
+    {f:"We need the catalogue now.", b:"We should be grateful to receive the catalogue as soon as possible.", n:"urgency without rudeness"}
+  ],
+  3:[
+    {f:"Give us exclusive rights for Italy.", b:"We should be grateful if you would consider granting us sole agency rights for Italy.", n:"negotiation register"},
+    {f:"Your prices are too high.", b:"We find your prices rather high; could you review them for a regular order?", n:"criticism + incentive"},
+    {f:"Send everything about your products.", b:"We would appreciate it if you could send us full details of your range.", n:"precision beats demands"}
+  ]
+};
+const ORDER = {
+  1:["Dear Sir or Madam,","We are a small sports shop in Rome.","Could you please send us your catalogue?","We look forward to hearing from you.","Yours faithfully, L. Verdi"],
+  2:["Subject: Enquiry — folding bikes","Dear Sir or Madam,","We saw your stand at the EuroShop fair in Düsseldorf.","We are a retailer of sports equipment based in Milan.","Could you please send us a quotation for 150 units of the model 'Foldy 20'?","We would also like to know your delivery times and payment terms.","We look forward to receiving your offer.","Yours faithfully, M. Neri — Purchasing Manager"],
+  3:["Subject: Enquiry re: espresso machines — possible long-term cooperation","Dear Ms Harper,","Your company was recommended to us by the Italian Trade Agency.","Our company distributes catering equipment throughout Northern Italy.","We should be grateful if you would send us your export price list, quoted CIF Genoa.","Kindly also specify minimum order quantities, discounts and payment terms.","If your prices are competitive, we are prepared to place regular orders.","We look forward to your early reply.","Yours sincerely, G. Ferri — Import Manager"]
+};
+const CLOZE = {
+  1:{bank:["interested","catalogue","price","delivery","faithfully","order"],
+     text:["Dear Sir or Madam,\nWe are ",{b:"interested"}," in your sports bags. Could you send us your ",{b:"catalogue"}," and price list, please? What is the ",{b:"price"}," of the model 'City'? How long is the ",{b:"delivery"}," time?\nWe look forward to hearing from you.\nYours ",{b:"faithfully"},",\nM. Neri"]},
+  2:{bank:["stand","quotation","units","discount","terms","invoice","complaint"],
+     text:["Dear Sir or Madam,\nWe visited your ",{b:"stand"}," at EuroShop and were very impressed by your display. We would like a ",{b:"quotation"}," for 150 ",{b:"units"}," of the folding bike 'Foldy 20'. Could you also tell us whether you allow a trade ",{b:"discount"}," and what your payment ",{b:"terms"}," are?\nWe look forward to receiving your offer.\nYours faithfully, M. Neri"]},
+  3:{bank:["obliged","CIF","irrevocable","competitive","sole","shipment","FOB"],
+     text:["Dear Ms Harper,\nWe should be ",{b:"obliged"}," if you would send us your export price list, quoted ",{b:"CIF"}," Genoa. Our usual method of payment is an ",{b:"irrevocable"}," letter of credit at sight. If your prices are ",{b:"competitive"},", we are prepared to place regular orders and to discuss ",{b:"sole"}," agency rights for the Italian market. Dispatch should take place from the port of ",{b:"shipment"}," within 30 days.\nWe look forward to your early reply.\nYours sincerely, G. Ferri"]}
+};
+const QUIZ = {
+  1:[
+    {q:"A message that asks a supplier for information is called…", o:["an order","an enquiry","an invoice"], a:1, w:"It asks — it does not buy."},
+    {q:"You start with 'Dear Sir or Madam,'. How do you finish?", o:["Yours sincerely","Best wishes","Yours faithfully"], a:2, w:"No name → faithfully."},
+    {q:"Which request is the most polite?", o:["Send the list.","Could you send the list, please?","Send list now."], a:1, w:"could + please."},
+    {q:"Where do you write the topic of an email?", o:["In the subject line","In the signature","In the P.S."], a:0, w:"The subject line is read first."},
+    {q:"What does the supplier usually send back?", o:["A complaint","A quotation / offer","A contract"], a:1, w:"Enquiry → quotation."}
+  ],
+  2:[
+    {q:"You write 'Dear Mr Smith,'. The correct sign-off is…", o:["Yours faithfully","Yours sincerely","Yours truly"], a:1, w:"Name → sincerely."},
+    {q:"Choose the correct indirect question:", o:["Could you tell me what are your terms?","Could you tell me what your terms are?","Could you tell me what do your terms are?"], a:1, w:"Subject before verb."},
+    {q:"A quotation is…", o:["the buyer's request","the supplier's reply with prices and conditions","the transport document"], a:1, w:"It answers the enquiry."},
+    {q:"Which is the best opening for an enquiry?", o:["We saw your stand at the fair and are writing to enquire about…","Buy from us soon.","Hello, prices please."], a:0, w:"Source + purpose."},
+    {q:"Which sentence does NOT belong in an enquiry?", o:["Could you send us your catalogue?","We demand a refund for the damaged goods.","We would like a quotation for 200 units."], a:1, w:"That is a complaint."}
+  ],
+  3:[
+    {q:"A price 'quoted CIF Genoa' means…", o:["cost only, buyer pays everything","cost, insurance and freight included up to Genoa","free delivery to the buyer's warehouse"], a:1, w:"CIF = Cost, Insurance, Freight."},
+    {q:"An 'irrevocable letter of credit at sight' is…", o:["a bank guarantee of payment when documents are presented","a discount for fast buyers","an insurance policy on goods"], a:0, w:"The classic export payment instrument."},
+    {q:"Most formal request:", o:["Send us your prices.","We should be obliged if you would send us your export price list.","Prices, please."], a:1, w:"Should be obliged if you would…"},
+    {q:"'Sole agency rights' means…", o:["the right to pay later","exclusive right to sell the products in a territory","the right to return goods"], a:1, w:"Exclusivity for an area."},
+    {q:"Find the error: 'Dear Sir or Madam… Yours sincerely,'", o:["nothing wrong","sign-off should be 'Yours faithfully'","the salutation should be 'Hello'"], a:1, w:"No name → faithfully."}
+  ]
+};
+const WRITING = {
+  1:{
+    scenario:"You work for a small shop in Rome. Write a short email (about 50 words) to a supplier of sports bags: ask for the catalogue, the price of the model 'City' and the delivery time.",
+    placeholder:"Dear Sir or Madam,\nWe are a small shop in …\nWe are interested in your …\nCould you please send us … ?\nWhat is the price of … ?\nWe look forward to …\nYours faithfully,\n(name)",
+    checklist:["Salutation: Dear Sir or Madam,","You say who you are","You ask for the catalogue","You ask for the price","You ask about delivery","Closing: We look forward to…","Sign-off: Yours faithfully,"],
+    model:"Dear Sir or Madam,\nWe are a small shop in Rome and we sell sports equipment.\nWe are interested in your sports bags. Could you please send us your catalogue? What is the price of the model 'City'? How long is the delivery time?\nWe look forward to hearing from you.\nYours faithfully,\nMario Neri"
+  },
+  2:{
+    scenario:"You are the Purchasing Assistant of SportItalia Srl, Milan. You met 'Urban Wheels Ltd' at the EuroShop fair. Write an email (about 90 words) asking for: a quotation for 150 folding bikes, model 'Foldy 20'; a trade discount; delivery times; payment terms.",
+    placeholder:"Subject: …\nDear Sir or Madam,\n[where you met them + who you are]\nCould you please send us a quotation for … ?\n[bulleted requests: discount, delivery, payment]\nWe look forward to …\nYours faithfully,\n(name + position)",
+    checklist:["Clear subject line","Where you found the supplier","One line about your company","Quotation: quantity + model","Question on discounts","Questions on delivery & payment terms","Look forward to + -ing","Correct sign-off"],
+    model:"Subject: Request for quotation — folding bikes, ref. Foldy 20\nDear Sir or Madam,\nWe visited your stand at the EuroShop fair and were very impressed by your range of folding bikes. We are a retailer of sports equipment based in Milan.\nCould you please send us a quotation for 150 units of the model 'Foldy 20'? We would also like to know:\n• whether you allow a trade discount;\n• your delivery times;\n• your terms of payment.\nWe look forward to receiving your offer.\nYours faithfully,\nM. Neri — Purchasing Assistant, SportItalia Srl"
+  },
+  3:{
+    scenario:"You are the Import Manager of CaffèNord SpA. Write a formal enquiry (120–150 words) to Harper Machines Ltd, Leeds: ask for the export catalogue and prices CIF Genoa, minimum order quantities, trade and quantity discounts, and payment by irrevocable letter of credit. Offer the prospect of regular orders and mention possible sole agency for Italy.",
+    placeholder:"[letterhead + date + inside address]\nSubject: …\nDear Ms Harper,\n[source of the recommendation]\n[company profile]\nWe should be grateful if you would…\n[bulleted requests: CIF, MOQ, discounts, L/C]\nIf your prices are competitive…\nWe look forward to your early reply.\nYours sincerely,\n…",
+    checklist:["Full header: address, date, inside address","Precise subject line with reference","Recommendation / source","Company profile with volumes","Price request quoted CIF Genoa","MOQs + trade/quantity discounts","Payment: irrevocable L/C","Incentive: regular orders + sole agency","Yours sincerely (name known)","Register: no contractions, formal modals"],
+    model:"CaffèNord SpA · Via Lancia 88, Milano\nMilano, 12 May 2025\nMs J. Harper — Harper Machines Ltd, Leeds\nSubject: Enquiry re: industrial espresso machines — possible long-term cooperation\nDear Ms Harper,\nYour company was recommended to us by the Italian Trade Agency, and we understand that you are one of the leading manufacturers of professional espresso machines.\nOur company distributes catering equipment to hotels and restaurants throughout Northern Italy.\nWe should be grateful if you could send us your illustrated catalogue and your export price list, quoted CIF Genoa, together with details of minimum order quantities, trade and quantity discounts, and payment terms — we usually operate by irrevocable letter of credit at sight.\nIf your prices are competitive, we are prepared to place substantial orders on a regular basis and to discuss sole agency rights for Italy.\nWe look forward to your early reply.\nYours sincerely,\nGiulia Ferri — Import Manager"
+  }
+};
+const PRECHECK = ["The recipient's address is correct","The subject line is clear and specific","I say why I am writing","I say where I found the supplier","My requests are specific (models, quantities)","I use polite modals (could / would)","I close with 'We look forward to…'","faithfully / sincerely matches the salutation"];
+
+/* ================= STATE ================= */
+let level = parseInt(localStorage.getItem("enq-level")||"2");
+const scores = {};
+const $ = s=>document.querySelector(s);
+const $$ = s=>[...document.querySelectorAll(s)];
+const shuffle = a=>{a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a;};
+
+/* ================= LEVEL CONTROLLER ================= */
+function setLevel(n, silent){
+  level=n; document.body.dataset.level=n;
+  localStorage.setItem("enq-level",n);
+  const L=LEVELS[n];
+  $$(".rail-stop").forEach(b=>b.setAttribute("aria-pressed", b.dataset.l==n));
+  const knob=$("#railKnob"), horiz=matchMedia("(max-width:860px)").matches;
+  if(horiz){knob.style.top="-4px"; knob.style.left=(n-1)*(80+10)+"px";}
+  else{knob.style.left="-4px"; knob.style.top=(n-1)*(50+6)+"px";}
+  $("#railTag").textContent=`${L.cefr} · ${L.desc}`;
+  $("#navLevel").textContent=`${L.name} · ${L.cefr}`;
+  $$(".lvl-word").forEach(e=>e.textContent=L.name);
+  if(!silent){
+    const t=$("#toast"); t.textContent=`${L.name} · ${L.cefr}`;
+    t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
+    clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1500);
+  }
+  typeSubject(); renderChain(); renderVocab(); renderPol(); renderOrder(); renderCloze(); renderQuiz(); renderWriting(); updateTotal();
+}
+addEventListener("keydown",e=>{ if(["INPUT","TEXTAREA"].includes(e.target.tagName))return;
+  if(e.key==="1")setLevel(1); if(e.key==="2")setLevel(2); if(e.key==="3")setLevel(3);});
+addEventListener("resize",()=>setLevel(level,true));
+$$(".rail-stop").forEach(b=>b.addEventListener("click",()=>setLevel(+b.dataset.l)));
+
+/* ================= SCORE ================= */
+function report(key,got,total){scores[key]={got,total}; updateTotal();}
+function updateTotal(){
+  let g=0,t=0; Object.values(scores).forEach(s=>{g+=s.got;t+=s.total;});
+  $("#scoreTotal").textContent=`${g} / ${t}`;
+}
+function badge(el,got,total){
+  el.textContent=`${got} / ${total} correct`;
+  el.classList.toggle("win", got===total);
+}
+
+/* ================= HERO TYPEWRITER ================= */
+let typer;
+function typeSubject(){
+  const el=$("#typeTarget"); const txt=SUBJECTS[level];
+  clearInterval(typer); el.textContent=""; let i=0;
+  typer=setInterval(()=>{ el.textContent=txt.slice(0,++i); if(i>=txt.length)clearInterval(typer); },42);
+  setTimeout(()=>$$(".mail-line").forEach((l,i)=>setTimeout(()=>l.classList.add("show"),i*300)), txt.length*42+200);
+}
+
+/* ================= TICKER ================= */
+(function(){const html=TICKER.map(w=>`<span>✦ <b>${w}</b></span>`).join(""); $("#tickerTrack").innerHTML=html+html;})();
+
+/* ================= TRADE CHAIN ================= */
+let chainIdx=0;
+function renderChain(){
+  $("#chain").innerHTML=CHAIN.map((s,i)=>
+    `<button class="chain-chip ${i===chainIdx?'on':''}" data-i="${i}">${s.t}</button>${i<CHAIN.length-1?'<span class="chain-arrow">→</span>':''}`).join("");
+  showChain(chainIdx);
+}
+function showChain(i){
+  chainIdx=i;
+  $$(".chain-chip").forEach(c=>c.classList.toggle("on",+c.dataset.i===i));
+  $("#chainInfo").innerHTML=`<span class="n">STEP ${i+1} OF ${CHAIN.length}</span><h4>${CHAIN[i].t}</h4><p>${CHAIN[i].d[level-1]}</p>`;
+}
+$("#chain").addEventListener("click",e=>{const c=e.target.closest(".chain-chip"); if(c)showChain(+c.dataset.i);});
+
+/* ================= VOCAB FLIP ================= */
+function renderVocab(){
+  $("#vgrid").innerHTML=VOCAB.map(v=>`
+    <div class="vcard" data-min="${v.min}" tabindex="0">
+      <div class="vcard-in">
+        <div class="vface vfront"><span class="star">${"★".repeat(v.min)}</span><span class="en">${v.en}</span><span class="hint">TAP TO FLIP</span></div>
+        <div class="vface vback"><span class="it">${v.it}</span><span class="ex">“${v.ex}”</span></div>
+      </div></div>`).join("");
+}
+$("#vgrid").addEventListener("click",e=>e.target.closest(".vcard")?.classList.toggle("flip"));
+
+/* ================= ANATOMY HIGHLIGHT ================= */
+const guide=$("#guide");
+function hot(part,on){$$(`.part[data-part="${part}"]`).forEach(p=>p.classList.toggle("hot",on));}
+guide.addEventListener("mouseover",e=>{const c=e.target.closest(".gcard"); if(c)hot(c.dataset.part,true);});
+guide.addEventListener("mouseout",e=>{const c=e.target.closest(".gcard"); if(c)hot(c.dataset.part,false);});
+guide.addEventListener("click",e=>{const c=e.target.closest(".gcard"); if(c){hot(c.dataset.part,true); setTimeout(()=>hot(c.dataset.part,false),1800);}});
+
+/* ================= TABS ================= */
+$("#tabs").addEventListener("click",e=>{
+  const b=e.target.closest(".tabbtn"); if(!b)return;
+  $$(".tabbtn").forEach(x=>x.classList.remove("on")); b.classList.add("on");
+  $$(".tabpanel").forEach(p=>p.classList.remove("on")); document.getElementById(b.dataset.tab).classList.add("on");
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".copybtn"); if(!b)return;
+  const txt=b.parentElement.childNodes[0].textContent.trim();
+  navigator.clipboard?.writeText(txt); b.textContent="copied!"; setTimeout(()=>b.textContent="copy",1200);
+});
+
+/* ================= POLITENESS ================= */
+function renderPol(){
+  $("#polCards").innerHTML=POL[level].map(p=>`
+    <div class="pcard" tabindex="0"><div class="pcard-in">
+      <div class="pface pfront"><span class="lbl">😬 TOO DIRECT — TAP</span><span class="txt">“${p.f}”</span></div>
+      <div class="pface pback"><span class="lbl">✉ PROFESSIONAL</span><span class="txt">“${p.b}”</span><span class="note">${p.n}</span></div>
+    </div></div>`).join("");
+}
+$("#polCards").addEventListener("click",e=>e.target.closest(".pcard")?.classList.toggle("flip"));
+
+/* ================= EX 1 · ORDER ================= */
+let ordAns=[], ordBank=[], ordCorrect=[];
+function renderOrder(){
+  ordCorrect=ORDER[level];
+  ordBank=shuffle(ordCorrect); if(JSON.stringify(ordBank)===JSON.stringify(ordCorrect))ordBank.reverse();
+  ordAns=[]; drawOrder();
+  $("#orderMsg").textContent=""; $("#sc-order").textContent="not checked"; $("#sc-order").classList.remove("win");
+  delete scores["order"+level]; updateTotal();
+}
+function drawOrder(){
+  $("#orderAns").innerHTML=ordAns.map((s,i)=>`<span class="chip" data-zone="ans" data-i="${i}"><span class="n">${i+1}</span>${s}</span>`).join("")||'<span class="mono" style="font-size:.7rem;color:#98a0b8">tap sentences from the bank →</span>';
+  $("#orderBank").innerHTML=ordBank.map((s,i)=>`<span class="chip" data-zone="bank" data-i="${i}">${s}</span>`).join("");
+}
+["orderAns","orderBank"].forEach(id=>document.getElementById(id).addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c)return;
+  const i=+c.dataset.i;
+  if(c.dataset.zone==="bank"){ordAns.push(ordBank.splice(i,1)[0]);}
+  else{ordBank.push(ordAns.splice(i,1)[0]);}
+  drawOrder(); $("#orderMsg").textContent="";
+}));
+$("#orderCheck").addEventListener("click",()=>{
+  if(ordAns.length!==ordCorrect.length){$("#orderMsg").textContent="⚠ Place all the sentences first."; $("#orderMsg").className="ex-msg meh"; return;}
+  let got=0;
+  $("#orderAns").innerHTML=ordAns.map((s,i)=>{const ok=s===ordCorrect[i]; if(ok)got++; return `<span class="chip ${ok?'ok':'bad'}" data-zone="ans" data-i="${i}"><span class="n">${i+1}</span>${s}</span>`;}).join("");
+  const msg=$("#orderMsg");
+  if(got===ordCorrect.length){msg.textContent="✔ Perfect order! This enquiry flows."; msg.className="ex-msg good";}
+  else{msg.textContent=`${got} in the right place — the red ones are misplaced.`; msg.className="ex-msg no";}
+  badge($("#sc-order"),got,ordCorrect.length); report("order"+level,got,ordCorrect.length);
+});
+$("#orderReset").addEventListener("click",renderOrder);
+
+/* ================= EX 2 · CLOZE ================= */
+let blanks=[], bankWords=[];
+function renderCloze(){
+  const d=CLOZE[level]; blanks=[]; let bi=0;
+  $("#clozeText").innerHTML=d.text.map(t=>typeof t==="string"
+    ? t.replace(/\n/g,"<br>")
+    : (blanks.push({sol:t.b,cur:null}), `<span class="blank" data-b="${bi++}">&nbsp;</span>`)).join("");
+  bankWords=shuffle(d.bank).map(w=>({w,used:false}));
+  drawClozeBank();
+  $("#clozeMsg").textContent=""; $("#sc-cloze").textContent="not checked"; $("#sc-cloze").classList.remove("win");
+  delete scores["cloze"+level]; updateTotal();
+}
+function drawClozeBank(){
+  $("#clozeBank").innerHTML=bankWords.map((o,i)=>`<span class="chip wbank ${o.used?'used':''}" data-i="${i}">${o.w}</span>`).join("");
+}
+$("#clozeBank").addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c||c.classList.contains("used"))return;
+  const blank=$$("#clozeText .blank").find(b=>!b.textContent.trim()||b.innerHTML==="&nbsp;");
+  if(!blank){$("#clozeMsg").textContent="All gaps are filled — tap a gap to free a word."; $("#clozeMsg").className="ex-msg meh"; return;}
+  const o=bankWords[+c.dataset.i]; o.used=true;
+  blanks[+blank.dataset.b].cur=o.w; blank.textContent=o.w; blank.classList.remove("ok","bad");
+  drawClozeBank();
+});
+$("#clozeText").addEventListener("click",e=>{
+  const b=e.target.closest(".blank"); if(!b||!b.textContent.trim()||b.innerHTML==="&nbsp;")return;
+  const i=+b.dataset.b, w=blanks[i].cur; blanks[i].cur=null;
+  const o=bankWords.find(o=>o.w===w&&o.used); if(o)o.used=false;
+  b.innerHTML="&nbsp;"; b.classList.remove("ok","bad"); drawClozeBank();
+});
+$("#clozeCheck").addEventListener("click",()=>{
+  let got=0;
+  $$("#clozeText .blank").forEach(b=>{
+    const d=blanks[+b.dataset.b]; const ok=d.cur===d.sol;
+    b.classList.toggle("ok",ok); b.classList.toggle("bad",!ok); if(ok)got++;
+  });
+  const msg=$("#clozeMsg"), tot=blanks.length;
+  if(got===tot){msg.textContent="✔ Flawless! Every word in its place."; msg.className="ex-msg good";}
+  else{msg.textContent=`${got}/${tot} correct — strikethrough words are wrong, try again.`; msg.className="ex-msg meh";}
+  badge($("#sc-cloze"),got,tot); report("cloze"+level,got,tot);
+});
+$("#clozeReset").addEventListener("click",renderCloze);
+
+/* ================= EX 3 · QUIZ ================= */
+let picks=[];
+function renderQuiz(){
+  picks=Array(QUIZ[level].length).fill(null);
+  $("#quizBox").innerHTML=QUIZ[level].map((q,i)=>`
+    <div class="qblock"><p class="q"><span class="qn">Q${i+1}</span>${q.q}</p>
+    ${q.o.map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${String.fromCharCode(65+j)} · ${o}</button>`).join("")}
+    <p class="why" id="why${i}">💡 ${q.w}</p></div>`).join("");
+  $("#quizMsg").textContent=""; $("#sc-quiz").textContent="not checked"; $("#sc-quiz").classList.remove("win");
+  delete scores["quiz"+level]; updateTotal();
+}
+$("#quizBox").addEventListener("click",e=>{
+  const b=e.target.closest(".opt"); if(!b)return;
+  const q=+b.dataset.q; picks[q]=+b.dataset.o;
+  $$(`.opt[data-q="${q}"]`).forEach(o=>o.classList.toggle("picked",+o.dataset.o===picks[q]));
+});
+$("#quizCheck").addEventListener("click",()=>{
+  if(picks.some(p=>p===null)){$("#quizMsg").textContent="⚠ Answer every question first."; $("#quizMsg").className="ex-msg meh"; return;}
+  let got=0;
+  QUIZ[level].forEach((q,i)=>{
+    $$(`.opt[data-q="${i}"]`).forEach(o=>{
+      const j=+o.dataset.o; o.classList.remove("picked");
+      if(j===q.a)o.classList.add("ok");
+      else if(j===picks[i])o.classList.add("bad");
+    });
+    document.getElementById("why"+i).style.display="block";
+    if(picks[i]===q.a)got++;
+  });
+  const msg=$("#quizMsg"), tot=QUIZ[level].length;
+  msg.textContent= got===tot ? "✔ Full marks — you know your enquiries!" : `Score: ${got}/${tot}. Read the 💡 notes under each question.`;
+  msg.className= got===tot?"ex-msg good":"ex-msg meh";
+  badge($("#sc-quiz"),got,tot); report("quiz"+level,got,tot);
+});
+$("#quizReset").addEventListener("click",renderQuiz);
+
+/* ================= EX 4 · WRITING ================= */
+function renderWriting(){
+  const d=WRITING[level];
+  $("#writingArea").innerHTML=`
+    <div class="writing">
+      <div>
+        <p style="font-size:.95rem"><b>📋 Scenario:</b> ${d.scenario}</p>
+        <ul class="wcheck">${d.checklist.map(c=>`<li><label><input type="checkbox"> ${c}</label></li>`).join("")}</ul>
+        <details class="model"><summary>SHOW MODEL ANSWER (read only after writing!)</summary><div class="mtxt">${d.model}</div></details>
+      </div>
+      <div>
+        <textarea id="draft" placeholder="${d.placeholder.replace(/"/g,"&quot;")}">${localStorage.getItem("enq-draft"+level)||""}</textarea>
+        <p class="wc">Words: <b id="wcNum">0</b> · your draft is saved automatically in this browser</p>
+      </div>
+    </div>`;
+  const ta=$("#draft");
+  const count=()=>{$("#wcNum").textContent=ta.value.trim()?ta.value.trim().split(/\s+/).length:0;};
+  ta.addEventListener("input",()=>{count(); localStorage.setItem("enq-draft"+level,ta.value);});
+  count();
+}
+
+/* ================= BEFORE YOU SEND ================= */
+$("#precheckCols").innerHTML=PRECHECK.map(c=>`<label><input type="checkbox"> <span>${c}</span></label>`).join("");
+document.getElementById("precheckCols").addEventListener("change",e=>{
+  const boxes=$$("#precheckCols input");
+  const done=boxes.filter(b=>b.checked).length;
+  boxes.forEach(b=>b.closest("label").classList.toggle("done",b.checked));
+  $("#checkCount").textContent=`${done} / ${boxes.length}` + (done===boxes.length?" ✔ READY TO SEND!":"");
+});
+
+/* ================= REVEAL ON SCROLL ================= */
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in"); io.unobserve(x.target);}}),{threshold:.12});
+$$(".reveal").forEach(el=>io.observe(el));
+
+/* ================= INIT ================= */
+setLevel(level,true);
+</script>
+</body>
+</html>
