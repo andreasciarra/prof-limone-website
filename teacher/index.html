@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Teacher's Area · Marianna Limone</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fb;color:#12263f;
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+.box{background:#fff;border:1px solid #dfe6f0;border-radius:14px;padding:28px;width:min(92vw,380px);box-shadow:0 10px 28px rgba(18,38,63,.1)}
+h1{font-family:Georgia,serif;margin:0 0 6px;font-size:1.6rem}
+p{color:#5b6b81;margin:0 0 16px;font-size:.95rem}
+input[type=password]{width:100%;box-sizing:border-box;border:1px solid #dfe6f0;border-radius:10px;padding:10px 12px;font:inherit;margin-bottom:10px}
+label{display:flex;gap:8px;align-items:center;font-size:.88rem;color:#5b6b81;margin-bottom:14px}
+button{width:100%;background:#1f6fd6;color:#fff;border:none;border-radius:10px;padding:10px;font-weight:700;font-size:1rem;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.err{color:#c62828;font-size:.88rem;min-height:1.2em;margin-top:10px}
+a{color:#5b6b81;font-size:.85rem}
+</style>
+</head>
+<body>
+<noscript>Please enable JavaScript to open this page.</noscript>
+<form class="box" id="lock" hidden>
+  <h1>🔒 Teacher's Area</h1>
+  <p>This page is reserved for teachers. Please enter the password.</p>
+  <input type="password" id="pw" placeholder="Password" autocomplete="current-password" required autofocus>
+  <label><input type="checkbox" id="remember" checked> Remember me on this device</label>
+  <button id="go">Unlock</button>
+  <div class="err" id="err"></div>
+  <a href="../index.html">← Back to the lessons</a>
+</form>
+<script>
+const P={"salt":"O33qinKHIH48TdZOqr9NXQ==","iter":600000,"iv":"JCw2SA15KI/c+Jbb","data":"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"};
+const KEY="teacherAreaKey";
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
+async function open(key){
+  const buf=await crypto.subtle.decrypt({name:"AES-GCM",iv:unb64(P.iv)},key,unb64(P.data));
+  const html=new TextDecoder().decode(buf);
+  document.open();document.write(html);document.close();
+}
+(async()=>{
+  const saved=localStorage.getItem(KEY);
+  if(saved){
+    try{const k=await crypto.subtle.importKey("raw",unb64(saved),"AES-GCM",false,["decrypt"]);await open(k);return;}
+    catch(e){localStorage.removeItem(KEY);}
+  }
+  document.getElementById("lock").hidden=false;
+})();
+document.getElementById("lock").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const btn=document.getElementById("go"),err=document.getElementById("err");
+  btn.disabled=true;btn.textContent="Unlocking…";err.textContent="";
+  try{
+    const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(document.getElementById("pw").value),"PBKDF2",false,["deriveKey"]);
+    const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:unb64(P.salt),iterations:P.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},true,["decrypt"]);
+    await crypto.subtle.decrypt({name:"AES-GCM",iv:unb64(P.iv)},key,unb64(P.data));
+    if(document.getElementById("remember").checked)localStorage.setItem(KEY,b64(await crypto.subtle.exportKey("raw",key)));
+    await open(key);
+  }catch(x){
+    err.textContent="Wrong password, please try again.";
+    btn.disabled=false;btn.textContent="Unlock";
+  }
+});
+</script>
+</body>
+</html>
