@@ -1,0 +1,3 @@
+# Unencrypted teacher materials: never publish these
+private/
+.DS_Store
